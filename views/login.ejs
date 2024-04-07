@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>E-Attendance - <%= title %></title>
+
+    <link rel="icon" type="image/png" href="images/logo-e-attendance.png" />
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="dist_login/css/style.css" />
+  </head>
+  <body style="background: #337ce53d">
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 col-lg-5">
+            <div class="login-wrap p-4 p-md-5">
+              <div
+                class="d-flex align-items-center justify-content-center"
+                style="margin-bottom: 10px"
+              >
+                <span
+                  ><img
+                    src="images/logo-e-attendance-3.png"
+                    alt="logo"
+                    style="height: 50px; width: 330px; opacity: 0.8"
+                /></span>
+              </div>
+              <h3
+                class="text-center mb-4"
+                style="
+                  font-weight: 500;
+                  font-size: 18px;
+                  margin-top: 24px;
+                  opacity: 0.8;
+                "
+              >
+                Login Karyawan
+              </h3>
+              <!-- jika pengguna menekan tombol submit maka akan diarahkan ke /login-pengguna yang nantinya akan diarahkan ke /  -->
+              <form action="/login-pengguna" class="login-form" method="POST">
+                <div class="form-group">
+                  <input
+                    id="username"
+                    type="text"
+                    name="username"
+                    class="form-control rounded-left"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
+                <div class="form-group d-flex">
+                  <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    class="form-control rounded-left"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <button
+                    type="submit"
+                    class="form-control btn btn-primary rounded submit px-3"
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="dist_login/js/jquery.min.js"></script>
+    <script src="dist_login/js/popper.js"></script>
+    <script src="dist_login/js/bootstrap.min.js"></script>
+    <script src="dist_login/js/main.js"></script>
+  </body>
+</html>

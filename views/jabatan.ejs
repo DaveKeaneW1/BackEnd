@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <%- include('layouts/head.ejs')%>
+  <body>
+    <%- include('layouts/navbar.ejs')%>
+    <%- include('layouts/sidebar.ejs')%>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="col-md-12 col-sm-12  ">
+      <div class="x_panel">
+        <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
+          <h2>Daftar Jabatan</h2>
+          <div style="margin-left: 15px;">
+            <button type="button" class="btn btn-success btn-block btn-flat tombolTambahDataJembatan" style="height: 38px; font-size: 14px;" data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static">
+              Tambah Jabatan
+          </button>
+          </div>
+        </div>
+        <div class="x_content">
+       <!-- tambah jabatan modal -->
+       <div class="modal fade" id="jabatan_modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="formModalLabel">Tambah Data Jabatan</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/tambah_jabatan" method="POST">
+                <input type="hidden" name="id" id="id">
+                <div class="form-group">
+                  <label for="nama">Nama</label>
+                  <input type="text" class="form-control" id="nama" name="nama" required>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-success">Tambah</button>
+              </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      
+        <!-- tabel data jabatan  -->
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 10%; max-width: 5%">ID</th>
+              <th style="width: 35%; max-width: 85%">Nama</th>
+              <th style="width: 20%; max-width: 10%">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>1</td>
+                <td>HRD</td>
+                <td>
+                  <div style="display: flex; align-items: center;">
+                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataJabatan" style="margin-right:10px; max-width: 90px"
+                      data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static" data-id="1>">
+                      Ubah
+                    </button>
+                    <button type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px" onclick="hapusJabatan(1, `HRD`)">
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>IT Support</td>
+                <td>
+                  <div style="display: flex; align-items: center;">
+                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataJabatan" style="margin-right:10px; max-width: 90px"
+                      data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static" data-id="1>">
+                      Ubah
+                    </button>
+                    <button type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px" onclick="hapusJabatan(1, `HRD`)">
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+   function hapusJabatan(id, nama){
+    var isDelete = confirm('Apakah anda yakin akan menghapus jabatan "' + nama +'"');
+
+    if(isDelete){
+      document.location.href='/abatan';
+    }
+  }
+</script>
+<%- include('layouts/footer.ejs')%>

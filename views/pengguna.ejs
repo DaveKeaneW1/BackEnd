@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <%- include('layouts/head.ejs')%>
+  <body>
+    <%- include('layouts/navbar.ejs')%>
+    <%- include('layouts/sidebar.ejs')%>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="col-md-12 col-sm-12  ">
+      <div class="x_panel">
+        <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
+          <h2>Daftar Pengguna</h2>
+          <div style="margin-left: 15px;">
+            <button type="button" class="btn btn-success btn-block btn-flat tombolTambahDataPengguna" style="height: 38px; font-size: 14px;" data-toggle="modal" data-target="#pengguna_modal" data-keyboard="false" data-backdrop="static">
+              Tambah Pengguna
+          </button>
+          </div>
+        </div>
+        <div class="x_content">
+
+      <!-- tambah pengguna modal -->
+      <div class="modal fade" id="pengguna_modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="formModalLabel">Tambah Data Pengguna</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/tambah_pengguna" method="POST">
+                <input type="hidden" name="id" id="id">
+                <div class="form-group">
+                  <label for="nama">Nama</label>
+                  <input type="text" class="form-control" id="nama" name="nama" required>
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="hidden" name="username_lama" id="username_lama">
+                  <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="text" class="form-control" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="lvl_pengguna">Level Pengguna</label>
+                  <select class="form-control" id="lvl_pengguna" name="lvl_pengguna" required>
+                    <option value="1">Admin</option>
+                    <option value="2">Karyawan</option>
+                    
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="jabatan">Jabatan</label>
+                  <select class="form-control" id="jabatan" name="jabatan" required>
+                    <option value="1">HRD</option>
+                    <option value="2">IT Support</option>
+                  </select>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-success">Tambah</button>
+              </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+
+      <!-- tabel data pengguna  -->
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 10%; max-width: 5%">ID</th>
+                <th style="width: 35%; max-width: 30%">Nama</th>
+                <th style="width: 20%; max-width: 15%">Username</th>
+                <th style="width: 20%; max-width: 15%">Jabatan</th>
+                <th style="width: 15%; max-width: 15%">Level Pengguna</th>
+                <th style="width: 20%; max-width: 20%">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Pengguna 1</td>
+                <td>pengguna1</td>
+                <td>Admin</td>
+                <td>Admin</td>
+                <td>
+                  <div style="display: flex; align-items: center;">
+                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataPengguna" style="margin-right:10px; max-width: 90px"
+                      data-toggle="modal" data-target="#pengguna_modal" data-keyboard="false" data-backdrop="static" data-id="pengguna1">
+                      Ubah
+                    </button>
+                    <button type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px; height: 33.78px; margin-bottom: 0px;" onclick="hapusPengguna(1, `pengguna1`)">
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Pengguna 1</td>
+                <td>pengguna1</td>
+                <td>Admin</td>
+                <td>Admin</td>
+                <td>
+                  <div style="display: flex; align-items: center;">
+                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataPengguna" style="margin-right:10px; max-width: 90px"
+                      data-toggle="modal" data-target="#pengguna_modal" data-keyboard="false" data-backdrop="static" data-id="pengguna1">
+                      Ubah
+                    </button>
+                    <button type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px; height: 33.78px; margin-bottom: 0px;" onclick="hapusPengguna(1, `pengguna1`)">
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function hapusPengguna(id_pengguna, nama_pengguna){
+    var isDelete = confirm('Apakah anda yakin akan menghapus pengguna "' + nama_pengguna +'"');
+
+    if(isDelete){
+      document.location.href='/pengguna';
+    }
+  }
+</script>
+<%- include('layouts/footer.ejs')%>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <%- include('layouts/head.ejs')%>
+  <body>
+    <%- include('layouts/navbar.ejs')%>
+    <%- include('layouts/sidebar.ejs')%>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="col-md-12 col-sm-12  ">
+      <div class="x_panel">
+      <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
+          <h2>Daftar Absensi</h2>
+          
+        </div>
+        <div class="x_content">
+
+        <div style="margin-top: 20px;">
+        <form action="/tambah_absensi" method="POST">
+          <div style="display: flex">
+          <div style="margin-right: 20px">
+
+            <input type="hidden" id="foto-url" name="foto-url"/>
+            <img src="images//image-not-found.jpg" id="foto-peabsensingguna" style="width: 200px; min-width: 200px; height: 240px; min-height: 240px; object-fit: cover; box-shadow: 0px 1px 4px #7575755e;">
+
+            <div style="margin-top: 10px; margin-left: 30px">
+              <button type="button" class="btn btn-success btn-block btn-flat" style="min-width: 150px; max-width: 150px; margin-right: 25px; font-size: 15px;" data-toggle="modal" data-target="#pengguna_modal" data-keyboard="false" data-backdrop="static">
+                  Ambil Gambar
+              </button>
+            </div>
+          </div>
+          <div>
+              <div style="display: flex; align-items: center;">
+                <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Tanggal Transaksi</div>
+                <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
+                <div style="font-size: 15px;">
+                  1 April 2024
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; margin-top: 10px;">
+                <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Status Kehadiran</div>
+                <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
+                <div>
+                  <select class="form-control" id="status_kehadiran" name="status_kehadiran" required style="height: 35px; width: 100px; border-radius: 5px">
+                    <option value="Hadir">Hadir</option>
+                    <option value="Izin">Izin</option>
+                    <option value="Sakit">Sakit</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: flex; margin-top: 10px;">
+                <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Keterangan</div>
+                <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
+                <div>
+                    <textarea id="keterangan" name="keterangan" rows="4" cols="500" required style="width: 400px; border: 1px solid #e7e2e2"></textarea>
+                </div>
+              </div>
+              <div style="display: flex; margin-top: 10px;">
+                <div style="min-width: 510px; max-width: 510px; margin-right: 25px; font-size: 15px;"></div>
+                  <button type="submit" class="btn btn-success btn-block btn-flat" style="height: 30px; font-size: 14px; width: 100px; padding: 0px;">
+                      Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+        </form>
+        </div>
+
+        <!-- tambah pengguna modal -->
+      <div class="modal fade" id="pengguna_modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="formModalLabel">Ambil Gambar</h4>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="tutupKameraModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div style="display: flex; margin-left: 30px; margin-top: 20px">
+              <div class="center">
+                <button type="button" class="btn btn-success" id="tombolNyalaKamera" style="font-size: 14px;">
+                    Nyalakan Kamera
+                </button>
+
+                <button type="button" class="btn btn-warning" id="tombolMatiKamera" style="font-size: 14px;">
+                    Matikan Kamera
+                </button>
+              </div>
+              <div class="center">
+                <button class="btn btn-primary" id="capture-btn">Ambil Gambar</button>
+              </div>
+            
+            </div>
+              <div class="center">
+                <button class="btn btn-primary" id="simpan-foto-btn">Simpan Foto</button>
+              </div>
+            <div class="modal-body">
+                <div style="margin-left: 65px">
+                  
+                    <div class="cell" style="float: none;">
+                      <video id="player" autoplay></video>
+                    </div>
+                    <div style="width: 320px;">
+                    <canvas id="canvas" width="320px" height="240px"></canvas>
+                  </div>
+                  
+                  <div id="pick-image">
+                    <label>Video is not supported. Pick an Image instead</label>
+                    <input type="file" accept="image/*" id="image-picker">
+                  </div>
+                </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+        
+        
+          <table class="table table-bordered" style="margin-top: 30px">
+            <thead>
+              <tr>
+                <th style="width: 5%; max-width: 5%">ID</th>
+                <th style="width: 15%; max-width: 15%">Tanggal Absensi</th>
+                <th style="width: 20%; max-width: 20%">Status Kehadiran</th>
+                <th style="width: 20%; max-width: 20%">Status Keterlambatan</th>
+                <th style="width: 15%; max-width: 15%">Tanggal Input</th>
+                <th style="width: 15%; max-width: 15%">Tanggal Ubah</th>
+                <th style="width: 10%; max-width: 10%">Foto</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>27 Maret 2024</td>
+                  <td>Hadir</td>
+                  <td>Tidak Terlambat</td>
+                  <td>27-3-2023 14:13:28</td>
+                  <td></td>
+                  
+                  <td>
+                    <img src="" alt="Foto" style="width: 100px; min-width: 100px; height: 100px; min-height: 100px; object-fit: cover; ">
+                  </td>
+                </tr>
+                <tr>
+                <td colspan="6">Keterangan: <br/>-</td>
+                </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- /page content -->
+
+<%- include('layouts/footer.ejs')%>

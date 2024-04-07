@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <%- include('layouts/head.ejs')%>
+  <body>
+    <%- include('layouts/navbar.ejs')%>
+    <%- include('layouts/sidebar.ejs')%>
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <div class="">
+        <div class="col-md-12 col-sm-12  ">
+          <div class="x_panel">
+          <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
+              <h2>Laporan Absensi</h2>
+              
+            </div>
+            <div style="display: flex; margin: 0 10px 30px 10px; flex-wrap: wrap; row-gap: 10px;">
+              <form action="/cari_tanggal" method="post">
+                <div style="display: flex; flex-wrap: wrap;">
+                  <div style="display: flex; margin-right: 10px; align-items: center;">
+                    <div style="min-width: 100px; font-weight: 600;">Tanggal</div>
+                    <div style="margin-left: 10px; margin-right: 10px;">:</div>
+                    <div>
+                      <input type="date" id="tgl_awal" name="tgl_awal" class="date-custom" value="">
+                    </div>
+                  </div>
+                  <div style="display: flex;  margin-right: 20px; align-items: center;">
+                    <div style="min-width: 20px; font-weight: 600;">-</div>
+                    <div>
+                      <input type="date" id="tgl_akhir" name="tgl_akhir" class="date-custom"
+                        value="">
+                    </div>
+                  </div>
+                  <div style="display: flex;">
+                    <button type="submit" class="btn btn-info btn-block btn-flat">
+                      <span aria-hidden="true" style="color: white;"><i class="fa fa-search" style="margin-right:5px"></i> Cari</span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+    
+              <div style="display: flex; margin-left: 5px;">
+                <form action="/reset_filter" method="post">
+                  <button type="submit" class="btn btn-secondary btn-block btn-flat">
+                    <span aria-hidden="true" style="color: white;"><i class="fa fa-filter" style="margin-right:5px"></i> Reset Filter</span>
+                  </button>
+                </form>
+              </div>
+    
+            </div>
+    
+            <div class="x_content">
+    
+            
+              <table class="table table-bordered" style="margin-top: 0px">
+                <thead>
+                  <tr>
+                    <th style="width: 5%; max-width: 5%">ID</th>
+                    <th style="width: 15%; max-width: 15%">Tanggal Absensi</th>
+                    <th style="width: 14%; max-width: 14%">Nama Karyawan</th>
+                    <th style="width: 11%; max-width: 11%">Status Kehadiran</th>
+                    <th style="width: 11%; max-width: 11%">Status Keterlambatan</th>
+                    <th style="width: 12%; max-width: 12%">Tanggal Input</th>
+                    <th style="width: 12%; max-width: 12%">Tanggal Ubah</th>
+                    <th style="width: 10%; max-width: 10%">Foto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>27 Maret 2024</td>
+                      <td>Pengguna 1</td>
+                      <td>Hadir</td>
+                      <td>Tidak Terlambat</td>
+                      <td>27-3-2023 14:13:28</td>
+                      <td></td>
+                      
+                      <td>
+                        <img src="" alt="Foto" style="width: 100px; min-width: 100px; height: 100px; min-height: 100px; object-fit: cover; ">
+                      </td>
+                    </tr>
+                    <tr>
+                    <td colspan="6">Keterangan: <br/> - </td>
+                    </tr>
+                </tbody>
+              </table>
+    
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+    <script type="text/javascript">
+    </script>
+    <!-- /page content -->
+    
+
+<%- include('layouts/footer.ejs')%>
