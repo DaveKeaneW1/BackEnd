@@ -22,8 +22,25 @@
     />
 
     <link rel="stylesheet" href="dist_login/css/style.css" />
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
   </head>
   <body style="background: #337ce53d">
+    <%- toasts %>
+    <% if (typeof message !== 'undefined' && message != "" && message != undefined) { %>
+      <script>
+        toastr.error(`<%= message %>`, "", {
+          timeOut: 2000,
+          closeButton: true,
+        });
+      </script>
+      <% } %>
+
     <section class="ftco-section">
       <div class="container">
         <div class="row justify-content-center">
@@ -35,7 +52,7 @@
               >
                 <span
                   ><img
-                    src="images/logo-e-attendance-3.png"
+                    src="images/logo-e-attendance-dark.png"
                     alt="logo"
                     style="height: 50px; width: 330px; opacity: 0.8"
                 /></span>
@@ -52,7 +69,7 @@
                 Login Karyawan
               </h3>
               <!-- jika pengguna menekan tombol submit maka akan diarahkan ke /login-pengguna yang nantinya akan diarahkan ke /  -->
-              <form action="/login-pengguna" class="login-form" method="POST">
+              <form action="/cek-login" class="login-form" method="POST">
                 <div class="form-group">
                   <input
                     id="username"

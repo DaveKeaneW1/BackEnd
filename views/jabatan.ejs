@@ -12,14 +12,15 @@
         <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
           <h2>Daftar Jabatan</h2>
           <div style="margin-left: 15px;">
-            <button type="button" class="btn btn-success btn-block btn-flat tombolTambahDataJembatan" style="height: 38px; font-size: 14px;" data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static">
+            <button type="button" class="btn btn-success btn-block btn-flat tombolTambahDataJabatan" style="height: 38px; font-size: 14px;" data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static">
               Tambah Jabatan
           </button>
           </div>
         </div>
         <div class="x_content">
-       <!-- tambah jabatan modal -->
-       <div class="modal fade" id="jabatan_modal">
+
+      <!-- tambah jabatan modal -->
+      <div class="modal fade" id="jabatan_modal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -29,7 +30,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="/tambah_jabatan" method="POST">
+              <form action="/jabatan/tambah" method="POST">
                 <input type="hidden" name="id" id="id">
                 <div class="form-group">
                   <label for="nama">Nama</label>
@@ -47,49 +48,37 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-      
-        <!-- tabel data jabatan  -->
-        <table class="table table-bordered">
-          <thead>
+
+
+      <!-- tabel data jabatan  -->
+      <table id="tabel-pengaturan" class="table table-bordered table-hover" style="width:100%">
+        <thead>
             <tr>
-              <th style="width: 10%; max-width: 5%">ID</th>
-              <th style="width: 35%; max-width: 85%">Nama</th>
-              <th style="width: 20%; max-width: 10%">Aksi</th>
+                <th>Nama</th>
+                <th>Aksi</th>
             </tr>
-          </thead>
-          <tbody>
-              <tr>
-                <td>1</td>
-                <td>HRD</td>
+        </thead>
+        <tbody>
+          <% list_jabatan.forEach(function(value) { %>
+            <tr>
+                <td><%= value['nama'] %></td>
                 <td>
-                  <div style="display: flex; align-items: center;">
-                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataJabatan" style="margin-right:10px; max-width: 90px"
-                      data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static" data-id="1>">
-                      Ubah
+                  <div style="display: flex;">
+                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataJabatan" style="margin-right:10px; max-width: 90px; height: 33px;"
+                      data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static" data-id="<%= value[`_id`] %>">
+                      <i class="fa fa-edit" style="margin-right:10px"></i>Ubah
                     </button>
-                    <button type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px" onclick="hapusJabatan(1, `HRD`)">
-                      Hapus
-                    </button>
+                    <button type="button" type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px; padding: 5px 10px; height: 33px;"
+                    onclick="hapusJabatan('<%=value[`_id`]%>', '<%=value[`nama`]%>')" 
+                    >
+                      <i class="fa fa-trash" style="margin-right:10px"></i>Hapus
+                    </button>  
                   </div>
                 </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>IT Support</td>
-                <td>
-                  <div style="display: flex; align-items: center;">
-                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataJabatan" style="margin-right:10px; max-width: 90px"
-                      data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static" data-id="1>">
-                      Ubah
-                    </button>
-                    <button type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px" onclick="hapusJabatan(1, `HRD`)">
-                      Hapus
-                    </button>
-                  </div>
-                </td>
-              </tr>
-          </tbody>
-        </table>
+            </tr>
+          <% }); %>
+        </tbody>
+    </table>
 
         </div>
       </div>
@@ -98,11 +87,65 @@
 </div>
 
 <script type="text/javascript">
-   function hapusJabatan(id, nama){
-    var isDelete = confirm('Apakah anda yakin akan menghapus jabatan "' + nama +'"');
+  jQuery.noConflict();
+(function($) {
+    $(document).ready(function() {
+        $('#tabel-pengaturan').DataTable({
+          "columnDefs": [
+            { "width": "220px", "targets": [1] } // Set specific column widths
+          ],
+          "columns": [
+            // Add more column definitions as needed
+            { "data": "nama" },
+            { "data": "aksi", "orderable": false }
+          ]
+        });
+
+      
+    });
+
+      $(function () {
+        $('.tombolTambahDataJabatan').on('click', function () {
+        $('#formModalLabel').html('Tambah Data Jabatan');
+        $('.modal-footer button[type=submit]').html('Tambah');
+        $('.modal-body form').attr('action', '/jabatan/tambah');
+
+        $('#nama').val('');
+        $('#id').val('');
+      })
+
+      $('.tombolUbahDataJabatan').on('click', function () {
+        $('#formModalLabel').html('Ubah Data Jabatan');
+        $('.modal-footer button[type=submit]').html('Ubah');
+        $('.modal-body form').attr('action', '/jabatan/ubah');
+
+        const id = $(this).data('id');
+
+        $.ajax({
+          url: '/jabatan/getubah',
+          data: { id: id },
+          method: "post",
+          dataType: 'json',
+          success: function (data) {
+            $('#nama').val(data.nama);
+            $('#id').val(data["_id"]);
+
+          },
+          error: function (xhr, status, error) {
+            console.error("Error occurred:", error);
+          // Handle error
+          }
+        })
+      })
+      })
+})(jQuery);
+
+
+  function hapusJabatan(id_jabatan, nama_jabatan){
+    var isDelete = confirm('Apakah anda yakin akan menghapus jabatan "' + nama_jabatan +'"');
 
     if(isDelete){
-      document.location.href='/abatan';
+      document.location.href='/jabatan/hapus/' + id_jabatan;
     }
   }
 </script>
