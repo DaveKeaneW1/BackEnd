@@ -22,19 +22,25 @@
     <!-- menu profile quick info -->
     <div class="profile clearfix">
       <div class="profile_pic">
-        <img
+        <div class="profile_custom_sidebar">
+<% if (req && req.cookies && req.cookies.nama_pengguna) { %> <%=
+  ambilInisialNama(req.cookies.nama_pengguna) %> <% } %>
+        </div>
+        <!-- <img
           src="images/profile/user3.png"
           alt="Pengguna 1"
           class="img-circle profile_img"
-        />
+        /> -->
       </div>
       <div class="profile_info">
         <h2>
-          Pengguna 1
+          <% if (req && req.cookies && req.cookies.nama_pengguna) { %> <%=
+            req.cookies.nama_pengguna %> <% } %>
         </h2>
-        <span
-          >IT Support</span
-        >
+        <span>
+          <% if (req && req.cookies && req.cookies.jabatan) { %> <%=
+            req.cookies.jabatan %> <% } %>
+        </span>
       </div>
     </div>
     <!-- /menu profile quick info -->
@@ -74,3 +80,16 @@
     <!-- /sidebar menu -->
   </div>
 </div>
+
+<%
+function ambilInisialNama(nama){
+
+    // Split the user's name into words
+    const nameWords = nama.split(' ');
+
+    // Extract the first character of each word and concatenate them
+    const initials = nameWords.map(word => word.charAt(0)).join('');
+
+    return initials;
+}
+%>
