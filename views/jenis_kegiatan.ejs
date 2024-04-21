@@ -10,48 +10,33 @@
     <div class="col-md-12 col-sm-12  ">
       <div class="x_panel">
         <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
-          <h2>Daftar Pengguna</h2>
+          <h2>Daftar Jenis Kegiatan</h2>
           <div style="margin-left: 15px;">
-            <button type="button" class="btn btn-success btn-block btn-flat tombolTambahDataPengguna" style="height: 38px; font-size: 14px;" data-toggle="modal" data-target="#pengguna_modal" data-keyboard="false" data-backdrop="static">
-              Tambah Pengguna
+            <button type="button" class="btn btn-success btn-block btn-flat tombolTambahData" style="height: 38px; font-size: 14px;" data-toggle="modal" data-target="#data_modal" data-keyboard="false" data-backdrop="static">
+              Tambah Jenis Kegiatan
           </button>
           </div>
         </div>
         <div class="x_content">
 
-      <!-- tambah pengguna modal -->
-      <div class="modal fade" id="pengguna_modal">
+      <!-- tambah data modal -->
+      <div class="modal fade" id="data_modal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" id="formModalLabel">Tambah Data Pengguna</h4>
+              <h4 class="modal-title" id="formModalLabel">Tambah Data Jenis Kegiatan</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form action="/pengguna/tambah" method="POST">
+              <form action="/jenis_kegiatan/tambah" method="POST">
                 <input type="hidden" name="id" id="id">
                 <div class="form-group">
                   <label for="nama">Nama</label>
                   <input type="text" class="form-control" id="nama" name="nama" required>
                 </div>
-                <div class="form-group">
-                  <label for="username">Username</label>
-                  <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="text" class="form-control" id="password" name="password" required>
-                </div>
 
-                <div class="form-group">
-                  <label for="level_pengguna">Level Pengguna</label>
-                  <select class="form-control" id="level_pengguna" name="level_pengguna" required>+
-                    <option value="Admin">Admin</option>
-                    <option value="Karyawan">Karyawan</option>
-                  </select>
-                </div>
                 <div class="form-group">
                   <label for="jabatan">Jabatan</label>
                   <select class="form-control" id="jabatan" name="jabatan" required>
@@ -76,32 +61,28 @@
       <!-- /.modal -->
 
 
-      <!-- tabel data pengguna  -->
+      <!-- tabel data  -->
       <table id="tabel-pengaturan" class="table table-bordered table-hover" style="width:100%">
         <thead>
             <tr>
                 <th>Nama</th>
-                <th>Username</th>
                 <th>Jabatan</th>
-                <th>Level Pengguna</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-          <% list_pengguna.forEach(function(value) { %>
+          <% list_data.forEach(function(value) { %>
             <tr>
-                <td><%= value['nama'] %></td>
-                <td><%= value['username'] %></td>
-                <td><%= value['jabatan'] ? value['jabatan']['nama'] : '' %></td>
-                <td><%= value['level_pengguna'] %></td>
+              <td><%= value['nama'] %></td>
+              <td><%= value['jabatan'] ? value['jabatan']['nama'] : '' %></td>
                 <td>
                   <div style="display: flex;">
-                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataPengguna" style="margin-right:10px; max-width: 90px; height: 33px;"
-                      data-toggle="modal" data-target="#pengguna_modal" data-keyboard="false" data-backdrop="static" data-id="<%= value[`_id`] %>">
+                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahData" style="margin-right:10px; max-width: 90px; height: 33px;"
+                      data-toggle="modal" data-target="#data_modal" data-keyboard="false" data-backdrop="static" data-id="<%= value[`_id`] %>">
                       <i class="fa fa-edit" style="margin-right:10px"></i>Ubah
                     </button>
                     <button type="button" type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px; padding: 5px 10px; height: 33px;"
-                    onclick="hapusPengguna('<%=value[`_id`]%>', '<%=value[`nama`]%>')" 
+                    onclick="hapusData('<%=value[`_id`]%>', '<%=value[`nama`]%>')" 
                     >
                       <i class="fa fa-trash" style="margin-right:10px"></i>Hapus
                     </button>  
@@ -124,14 +105,12 @@
     $(document).ready(function() {
         $('#tabel-pengaturan').DataTable({
           "columnDefs": [
-            { "width": "220px", "targets": [4] } // Set specific column widths
+            { "width": "220px", "targets": [2] } // Set specific column widths
           ],
           "columns": [
             // Add more column definitions as needed
             { "data": "nama" },
-            { "data": "username" },
             { "data": "jabatan" },
-            { "data": "level_pengguna" },
             { "data": "aksi", "orderable": false }
           ]
         });
@@ -140,39 +119,31 @@
     });
 
       $(function () {
-        $('.tombolTambahDataPengguna').on('click', function () {
-        $('#formModalLabel').html('Tambah Data Pengguna');
+        $('.tombolTambahData').on('click', function () {
+        $('#formModalLabel').html('Tambah Data Jenis Kegiatan');
         $('.modal-footer button[type=submit]').html('Tambah');
-        $('.modal-body form').attr('action', '/pengguna/tambah');
+        $('.modal-body form').attr('action', '/jenis_kegiatan/tambah');
 
         $('#nama').val('');
-        $('#username').val('');
-        $('#password').val('');
-        $('#password').prop("required", true);
-        $('#level_pengguna').val('');
         $('#jabatan').val('');
         $('#id').val('');
       })
 
-      $('.tombolUbahDataPengguna').on('click', function () {
-        $('#formModalLabel').html('Ubah Data Pengguna');
+      $('.tombolUbahData').on('click', function () {
+        $('#formModalLabel').html('Ubah Data Jenis Kegiatan');
         $('.modal-footer button[type=submit]').html('Ubah');
-        $('.modal-body form').attr('action', '/pengguna/ubah');
+        $('.modal-body form').attr('action', '/jenis_kegiatan/ubah');
 
         const id = $(this).data('id');
 
         $.ajax({
-          url: '/pengguna/getubah',
+          url: '/jenis_kegiatan/getubah',
           data: { id: id },
           method: "post",
           dataType: 'json',
           success: function (data) {
             $('#nama').val(data.nama);
-            $('#username').val(data.username);
-            $('#password').val('');
-            $('#password').prop("required", false);
-            $('#level_pengguna').val(data.level_pengguna);
-            $('#jabatan').val(data.jabatan ? data.jabatan['_id'] : '');
+            $('#jabatan').val(data.jabatan ? data.jabatan["_id"] : '');
             $('#id').val(data["_id"]);
 
           },
@@ -186,13 +157,11 @@
 })(jQuery);
 
 
-  function hapusPengguna(id_pengguna, nama_pengguna){
-    document.getElementById("nama")
-    
-    var isDelete = confirm('Apakah anda yakin akan menghapus pengguna "' + nama_pengguna +'"');
+  function hapusData(id, nama){
+    var isDelete = confirm('Apakah anda yakin akan menghapus jenis kegiatan "' + nama +'"');
 
     if(isDelete){
-      document.location.href='/pengguna/hapus/' + id_pengguna;
+      document.location.href='/jenis_kegiatan/hapus/' + id;
     }
   }
 </script>

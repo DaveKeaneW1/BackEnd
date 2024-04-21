@@ -10,11 +10,11 @@
         <div class="col-md-12 col-sm-12  ">
           <div class="x_panel">
           <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
-              <h2>Laporan Absensi</h2>
+              <h2>Laporan Kegiatan</h2>
               
             </div>
             <div style="display: flex; margin: 0 10px 30px 10px; flex-wrap: wrap; row-gap: 10px;">
-              <form action="/laporan_absensi/cari" method="post">
+              <form action="/laporan_kegiatan/cari" method="post">
                 <div style="display: flex; flex-wrap: wrap;">
                   <div style="display: flex; margin-right: 10px; align-items: center;">
                     <div style="min-width: 100px; font-weight: 600;">Tanggal</div>
@@ -40,7 +40,7 @@
               </form>
     
               <div style="display: flex; margin-left: 5px;">
-                <form action="/laporan_absensi/reset" method="post">
+                <form action="/laporan_kegiatan/reset" method="post">
                   <button type="submit" class="btn btn-secondary btn-block btn-flat">
                     <span aria-hidden="true" style="color: white;"><i class="fa fa-filter" style="margin-right:5px"></i> Reset Filter</span>
                   </button>
@@ -56,33 +56,27 @@
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Tanggal Absensi</th>
+                    <th>Tanggal Kegiatan</th>
+                    <th>Waktu Mulai</th>
+                    <th>Waktu Selesai</th>
                     <th>Nama Karyawan</th>
-                    <th>Status Kehadiran</th>
-                    <th>Status Keterlambatan</th>
+                    <th>Nama Kegiatan</th>
                     <th>Tanggal Input</th>
                     <th>Tanggal Ubah</th>
-                    <th>Foto</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% list_data.forEach(function(value, index) { %>
                     <tr data-id="<%= index %>">
                         <td class="details-control"></i></td>
-                        <td><%= value['tgl_absensi'] %></td>
+                        <td><%= value['tgl_kegiatan'] %></td>
+                        <td><%= value['waktu_mulai'] %></td>
+                        <td><%= value['waktu_selesai'] %></td>
                         <td><%= value['pengguna'] ? value['pengguna']['nama'] : '' %></td>
-                        <td><%= value['status_kehadiran'] %></td>
-                        <td><%= value['status_keterlambatan'] %></td>
+                        <td><%= value['jenis_kegiatan'] ? value['jenis_kegiatan']['nama'] ? value['jenis_kegiatan']['nama'] : "Lainnya" : "Lainnya" %></td>
                         <td><%= value['tgl_input'] %></td>
                         <td><%= value['tgl_ubah'] %></td>
-                        
-                        <td>
-                          <img src="<%= value['foto'] %>" alt="Foto" style="width: 100px; min-width: 100px; height: 100px; min-height: 100px; object-fit: cover; ">
-                        </td>
                       </tr>
-                      <!-- <tr>
-                      <td colspan="6">Keterangan: <br/>-</td>
-                      </tr> -->
                   <% }); %>
                     
                 </tbody>
@@ -105,15 +99,17 @@
           "columns": [
             // Add more column definitions as needed
             { "data": null, "orderable": false, "className": "details-control", "defaultContent": "<i class='fa fa-sort-up arrow-icon'></i>" }, // This column will contain the control to show/hide row details
-            { "data": "tanggal_absensi" },
+            { "data": "tgl_kegiatan" },
+            { "data": "waktu_mulai" },
+            { "data": "waktu_selesai" },
             { "data": "nama_karyawan" },
-            { "data": "status_kehadiran" },
-            { "data": "status_keterlambatan" },
+            { "data": "jenis_kegiatan" },
             { "data": "tanggal_input" },
             { "data": "tanggal_ubah" },
-            { "data": "foto", "orderable": false },
           ],
           "columnDefs": [
+            { "width": "220px", "targets": [5] }, // Set specific column widths
+            { "width": "150px", "targets": [1, 2] }, // Set specific column widths
             {
                 "targets": 1, // Assuming the date column is the first column (index 0)
                 "render": function (data, type, row) {
@@ -143,13 +139,13 @@
                 }
             },
             {
-                "targets": 5, // Assuming the date column is the first column (index 0)
+                "targets": 6, // Assuming the date column is the first column (index 0)
                 "render": function (data, type, row) {
                   return data ? new Date(data).toLocaleString() : ""
                 }
             },
             {
-                "targets": 6, // Assuming the date column is the first column (index 0)
+                "targets": 7, // Assuming the date column is the first column (index 0)
                 "render": function (data, type, row) {
                   return data ? new Date(data).toLocaleString() : ""
                 }
@@ -184,6 +180,7 @@
         }
     });
   })(jQuery);
+
 
     </script>
     <!-- /page content -->

@@ -5,6 +5,9 @@ const flash = require("express-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const toastr = require("express-toastr");
+const bodyParser = require('body-parser');
+const upload = require("./backend/middleware/upload");
+const fs = require("fs");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,6 +21,7 @@ app.use(express.json());
 
 //static files
 app.use(express.static("public"));
+app.use('/uploads', express.static("uploads"));
 
 //flash messages
 app.use(flash());
@@ -50,22 +54,49 @@ app.set("view engine", "ejs");
 //create table
 app.use("/create_table", require("./backend/routes/create_table"));
 
-app.get("/", (req, res) => {
-  res.redirect("/pengguna");
-});
+// app.get("/", (req, res) => {
+//   res.redirect("/pengguna");
+// });
 
 app.use("/", require("./backend/routes/index"));
 app.use("/pengguna", require("./backend/routes/pengguna"));
 app.use("/jabatan", require("./backend/routes/jabatan"));
+app.use("/jenis_kegiatan", require("./backend/routes/jenis_kegiatan"));
+app.use("/", require("./backend/routes/absensi"));
+app.use("/", require("./backend/routes/kegiatan"));
 
+// POST route to handle image upload
+app.post('/upload', upload.single('image'), (req, res) => {
+  // 'image' should match the name attribute of the input field in the form
 
-// app.get("/absensi", (req, res) => {
-//   res.render("absensi.ejs", { title: "Daftar Absensi", page: req.url });
+  // Extract base64 data from the request body
+  const base64Data = req.body.foto.replace(/^data:image\/\w+;base64,/, '');
+
+  // Decode base64 data
+  const decodedImage = Buffer.from(base64Data, 'base64');
+
+  // Generate a unique filename (you can customize this as needed)
+  const filename = 'uploaded_image_' + Date.now() + '.jpg';
+
+  // Write the decoded image data to a file
+  fs.writeFile('uploads/' + filename, decodedImage, (err) => {
+    if (err) {
+      console.error('Error saving image:', err);
+      res.status(500).send('Error saving image');
+    } else {
+      console.log('Image saved as:', filename);
+      res.send('uploads/' + filename);
+    }
+  });
+});
+
+// app.get("/notfound", (req, res) => {
+//   res.status(404).render("notfound.ejs", { title: "Not Found" });
 // });
 
-// //jika tekan tombol tambah dan menambah data absensi baru -> arahkan ke halaman absensi
-// app.post("/tambah_absensi", (req, res) => {
-//   res.redirect("/jabatan");
+//redirect ke halaman /notfound jika halaman tidak ditemukan
+// app.get("*", (req, res) => {
+//   res.redirect("/notfound")
 // });
 
 // app.get("/laporan_absensi", (req, res) => {

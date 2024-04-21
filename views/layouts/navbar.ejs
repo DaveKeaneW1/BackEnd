@@ -1,4 +1,33 @@
 <body class="nav-md">
+  <script type="text/javascript">
+    toastr.options = {
+      closeButton: true, // Show close button
+      timeOut: 0, // Set timeOut to 0 to make it sticky until user closes it
+      extendedTimeOut: 0 // Set extendedTimeOut to 0 to make it sticky until user closes it
+    };
+    
+    function showToast(message, type) {
+      if (type === "info") {
+        toastr.info(message);
+      } else if (type === "success") {
+        toastr.success(message);
+      } else if (type === "error") {
+        toastr.error(message);
+      } else if (type === "warning") {
+        toastr.warning(message);
+      }
+    }
+  </script>
+
+  <% if (typeof req.session !== undefined && req.session != null && req.session.alert_message != undefined && req.session.alert_message != null) { %> <% var alert_message = req.session.alert_message; %>
+  <script type="text/javascript">
+    showToast(
+      "<%= alert_message['message']%>",
+      "<%= alert_message['type']%>"
+    );
+  </script>
+  <% delete req.session.alert_message; %>
+  <% } %>
 
   <div class="container body">
     <div class="main_container">
@@ -24,8 +53,8 @@
               req.cookies.nama_pengguna %> <% } %></span>
           </a>
           <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item"  href="javascript:;" style="font-size: 14px;"> Profile</a>
-            <a class="dropdown-item"  href="/logout" style="font-size: 14px;"><i class="fa fa-sign-out pull-right" style="margin-top: 3px;"></i> LogOut</a>
+            <!-- <a class="dropdown-item"  href="javascript:;" style="font-size: 14px;"> Profile</a> -->
+            <a class="dropdown-item"  href="/logout" style="font-size: 14px;"><i class="fa fa-sign-out pull-right" style="margin-top: 3px;"></i> Logout</a>
           </div>
         </li>
       </ul>

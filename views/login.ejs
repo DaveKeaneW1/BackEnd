@@ -24,22 +24,38 @@
     <link rel="stylesheet" href="dist_login/css/style.css" />
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css"
-    />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+
+    <link rel="stylesheet" href="plugins/toastr/toastr.min.css" />
+    <script src="plugins/toastr/toastr.min.js"></script>
   </head>
   <body style="background: #337ce53d">
-    <%- toasts %>
-    <% if (typeof message !== 'undefined' && message != "" && message != undefined) { %>
-      <script>
-        toastr.error(`<%= message %>`, "", {
-          timeOut: 2000,
-          closeButton: true,
-        });
-      </script>
-      <% } %>
+    <script type="text/javascript">
+      toastr.options = {
+        closeButton: true, // Show close button
+        timeOut: 0, // Set timeOut to 0 to make it sticky until user closes it
+        extendedTimeOut: 0 // Set extendedTimeOut to 0 to make it sticky until user closes it
+      };
+      function showToast(message, type) {
+        if (type === "info") {
+          toastr.info(message);
+        } else if (type === "success") {
+          toastr.success(message);
+        } else if (type === "error") {
+          toastr.error(message);
+        } else if (type === "warning") {
+          toastr.warning(message);
+        }
+      }
+    </script>
+
+    <% if (typeof req.session !== undefined && req.session != null && req.session.alert_message != undefined && req.session.alert_message != null) { %> <% var alert_message = req.session.alert_message; %>
+    <script type="text/javascript">
+      showToast(
+        "<%= alert_message['message']%>",
+        "<%= alert_message['type']%>"
+      );
+    </script>
+    <% } %>
 
     <section class="ftco-section">
       <div class="container">

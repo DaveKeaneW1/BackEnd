@@ -23,8 +23,8 @@
     <div class="profile clearfix">
       <div class="profile_pic">
         <div class="profile_custom_sidebar">
-<% if (req && req.cookies && req.cookies.nama_pengguna) { %> <%=
-  ambilInisialNama(req.cookies.nama_pengguna) %> <% } %>
+          <% if (req && req.cookies && req.cookies.nama_pengguna) { %> <%=
+          ambilInisialNama(req.cookies.nama_pengguna) %> <% } %>
         </div>
         <!-- <img
           src="images/profile/user3.png"
@@ -35,11 +35,11 @@
       <div class="profile_info">
         <h2>
           <% if (req && req.cookies && req.cookies.nama_pengguna) { %> <%=
-            req.cookies.nama_pengguna %> <% } %>
+          req.cookies.nama_pengguna %> <% } %>
         </h2>
         <span>
           <% if (req && req.cookies && req.cookies.jabatan) { %> <%=
-            req.cookies.jabatan %> <% } %>
+          req.cookies.jabatan %> <% } %>
         </span>
       </div>
     </div>
@@ -47,33 +47,45 @@
 
     <br />
 
+    <% var isAdmin = false; %>
+    <% if (req && req.cookies && req.cookies.admin == "1") { isAdmin = true } %>
+
     <!-- sidebar menu -->
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
       <div class="menu_section">
         <h3>General</h3>
         <ul class="nav side-menu">
-          <li>
-            <a href="/pengguna"><i class="fa fa-users"></i> Pengguna</a>
-          </li>
-          <li>
-            <a href="/jabatan"><i class="fa fa-briefcase"></i> Jabatan</a>
-          </li>
+          <%if(isAdmin) {%>
+            <li>
+              <a href="/pengguna"><i class="fa fa-users"></i> Pengguna</a>
+            </li>
+            <li>
+              <a href="/jabatan"><i class="fa fa-briefcase"></i> Jabatan</a>
+            </li>
+            <li>
+              <a href="/jenis_kegiatan"><i class="fa fa-edit"></i> Jenis Kegiatan</a>
+            </li>
+          <% }%>
           <li>
             <a href="/absensi"><i class="fa fa-check-square-o"></i> Absensi</a>
           </li>
-          <li>
-            <a href="/laporan_absensi"
-              ><i class="fa fa-files-o"></i> Laporan Absensi</a
-            >
-          </li>
+          <%if(isAdmin) {%>
+            <li>
+              <a href="/laporan_absensi"
+                ><i class="fa fa-files-o"></i> Laporan Absensi</a
+              >
+            </li>
+          <% }%>
           <li>
             <a href="/kegiatan"><i class="fa fa-list-alt"></i> Kegiatan</a>
           </li>
-          <li>
-            <a href="/laporan_kegiatan"
-              ><i class="fa fa-archive"></i> Laporan Kegiatan</a
-            >
-          </li>
+          <%if(isAdmin) {%>
+            <li>
+              <a href="/laporan_kegiatan"
+                ><i class="fa fa-archive"></i> Laporan Kegiatan</a
+              >
+            </li>
+          <% }%>
         </ul>
       </div>
     </div>
@@ -81,15 +93,8 @@
   </div>
 </div>
 
-<%
-function ambilInisialNama(nama){
-
-    // Split the user's name into words
-    const nameWords = nama.split(' ');
-
-    // Extract the first character of each word and concatenate them
-    const initials = nameWords.map(word => word.charAt(0)).join('');
-
-    return initials;
-}
+<% function ambilInisialNama(nama){ // Split the user's name into words const
+nameWords = nama.split(' '); 
+// Extract the first character of each word and concatenate them 
+const initials = nameWords.map(word => word.charAt(0)).join(''); return initials; } 
 %>
