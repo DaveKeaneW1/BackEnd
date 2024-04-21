@@ -3,17 +3,17 @@ const router = express.Router();
 const penggunaController = require('../controllers/penggunaController');
 
 //untuk autentikasi
-const verifyToken = require('../middleware/auth');
+const verifyTokenAdmin = require('../middleware/authAdmin');
 
 /**
  * Routing untuk Halaman Pengaturan
  */
 
-router.get('/', verifyToken, penggunaController.pengguna);
-router.get('/hapus/:id', verifyToken, penggunaController.hapusPengguna);
-router.post('/tambah', verifyToken, penggunaController.tambah_pengguna);
-router.post('/ubah', verifyToken, penggunaController.ubah_pengguna);
+router.get('/', verifyTokenAdmin, penggunaController.pengguna);
+router.get('/hapus/:id', verifyTokenAdmin, penggunaController.hapusPengguna);
+router.post('/tambah', verifyTokenAdmin, penggunaController.tambah_pengguna);
+router.post('/ubah', verifyTokenAdmin, penggunaController.ubah_pengguna);
 
-router.post('/getubah', verifyToken, penggunaController.ambil_data_pengguna);
+router.post('/getubah', verifyTokenAdmin, penggunaController.ambil_data_pengguna);
 
 module.exports = router;

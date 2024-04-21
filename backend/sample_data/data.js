@@ -15,4 +15,27 @@ const sample_jabatan = [
   { nama: "IT Support" },
 ];
 
-module.exports = { sample_jabatan, sample_pengguna };
+const sample_jenis_kegiatan = [
+  {
+    nama: "Menambah Pengguna",
+    nama_jabatan: "Admin"
+  },
+  {
+    nama: "Mengecek Kegiatan",
+    nama_jabatan: "Admin"
+  },
+  {
+    nama: "Menambah Pengguna",
+    nama_jabatan: "IT Support"
+  },
+  {
+    nama: "Mengecek Kegiatan",
+    nama_jabatan: "IT Support"
+  },
+  {
+    nama: "Wawancara dengan pelamar",
+    nama_jabatan: "HRD"
+  }
+];
+
+module.exports = { sample_jabatan, sample_pengguna, sample_jenis_kegiatan };

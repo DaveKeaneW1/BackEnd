@@ -7,6 +7,6 @@ const PenggunaSchema = new Schema({
   nama: { type: String, required: true },
   level_pengguna: { type: String, required: true },
   jabatan: { type: mongoose.Schema.Types.ObjectId, ref: "Jabatan" },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Pengguna', PenggunaSchema);
