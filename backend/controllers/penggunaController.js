@@ -41,16 +41,16 @@ exports.hapusPengguna = async (req, res) => {
 
   try {
     await PenggunaService.hapusData(id);
-    req.toastr.success("Data berhasil dihapus", "", {
-      timeOut: 2000,
-      closeButton: true,
-    });
+    req.session.alert_message = {
+      "message": "Data berhasil dihapus.",
+      "type": "success",
+    };
   } catch (e) {
     error = e;
-    req.toastr.error("Gagal menghapus data", "", {
-      timeOut: 2000,
-      closeButton: true,
-    });
+    req.session.alert_message = {
+      "message": "Gagal menghapus data.",
+      "type": "error",
+    };
   }
 
   res.redirect("/pengguna");
@@ -66,10 +66,10 @@ exports.tambah_pengguna = async (req, res) => {
   try {
     const result = await PenggunaService.tambahData(req);
     if (result) {
-      req.toastr.success("Tambah Data Berhasil", "", {
-        timeOut: 2000,
-        closeButton: true,
-      });
+      req.session.alert_message = {
+        "message": "Tambah Data Berhasil.",
+        "type": "success",
+      };
       res.redirect("/pengguna");
     }
   } catch (e) {
@@ -77,10 +77,10 @@ exports.tambah_pengguna = async (req, res) => {
     if (e) {
       message = e;
     }
-    req.toastr.error(message, "", {
-      timeOut: 2000,
-      closeButton: true,
-    });
+    req.session.alert_message = {
+      "message": message,
+      "type": "error",
+    };
     res.redirect("/pengguna");
   }
 };
@@ -95,10 +95,10 @@ exports.ubah_pengguna = async (req, res) => {
   try {
     const result = await PenggunaService.ubahData(req.body.id, req);
     if (result) {
-      req.toastr.success("Ubah Data Berhasil", "", {
-        timeOut: 2000,
-        closeButton: true,
-      });
+      req.session.alert_message = {
+        "message": "Ubah Data Berhasil.",
+        "type": "success",
+      };
       res.redirect("/pengguna");
     }
   } catch (e) {
@@ -107,10 +107,11 @@ exports.ubah_pengguna = async (req, res) => {
       message = e;
     }
 
-    req.toastr.error(message, "", {
-      timeOut: 2000,
-      closeButton: true,
-    });
+    req.session.alert_message = {
+      "message": message,
+      "type": "error",
+    };
+
     res.redirect("/pengguna/" + req.body.id);
   }
 };
