@@ -1,128 +1,268 @@
-<!DOCTYPE html>
-<html>
-  <%- include('layouts/head.ejs')%>
-  <body>
-    <%- include('layouts/navbar.ejs')%>
-    <%- include('layouts/sidebar.ejs')%>
+<%- include('layouts/head.ejs')%> <%- include('layouts/navbar.ejs')%> <%-
+include('layouts/sidebar.ejs')%>
 <!-- page content -->
 <div class="right_col" role="main">
   <div class="">
-    <div class="col-md-12 col-sm-12  ">
+    <div class="col-md-12 col-sm-12">
       <div class="x_panel">
-      <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
+        <div
+          class="x_title"
+          style="
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          "
+        >
           <h2>Daftar Absensi</h2>
-          
         </div>
-        
+
         <div class="x_content">
-
-        <div style="margin-top: 20px;">
-          <form id="formAbsensi" action="/absensi/tambah" method="POST">
-            <div style="display: flex">
-              <div style="margin-right: 20px">
-                  <input type="hidden" id="foto-url" name="foto"/>
-                  <img src="images//image-not-found.jpg" id="foto-pengguna" style="width: 200px; min-width: 200px; height: 240px; min-height: 240px; object-fit: cover; box-shadow: 0px 1px 4px #7575755e;">
-
-                <div style="margin-top: 10px; margin-left: 30px">
-                  <button type="button" class="btn btn-success btn-block btn-flat" style="min-width: 150px; max-width: 150px; margin-right: 25px; font-size: 15px;" data-toggle="modal" data-target="#pengguna_modal" data-keyboard="false" data-backdrop="static">
-                      Ambil Gambar
-                  </button>
+          <div style="margin-top: 20px">
+            <form id="formAbsensi" action="/absensi/tambah" method="POST">
+              <div style="display: flex; margin-bottom: 30px">
+                <div
+                  id="lokasi-info"
+                  style="text-align: left; width: 100%; font-weight: 800"
+                >
+                  Sedang mengecek lokasi anda saat ini....
                 </div>
               </div>
-              <div>
-                <div style="display: flex; align-items: center;">
-                  <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Tanggal Transaksi</div>
-                  <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
-                  <div style="font-size: 15px;">
-                    <%= formatDate(new Date()) %>
-                  </div>
-                </div>
+              <div style="display: flex">
+                <div style="margin-right: 20px">
+                  <input type="hidden" id="foto-url" name="foto" />
+                  <img
+                    src="images//image-not-found.jpg"
+                    id="foto-pengguna"
+                    style="
+                      width: 200px;
+                      min-width: 200px;
+                      height: 240px;
+                      min-height: 240px;
+                      object-fit: cover;
+                      box-shadow: 0px 1px 4px #7575755e;
+                    "
+                  />
 
-                <div style="display: flex; align-items: center; margin-top: 10px;">
-                  <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Status Kehadiran</div>
-                  <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
-                  <div>
-                    <select class="form-control" id="status_kehadiran" name="status_kehadiran" required style="height: 35px; width: 100px; border-radius: 5px">
-                      <option value="Hadir">Hadir</option>
-                      <option value="Izin">Izin</option>
-                      <option value="Sakit">Sakit</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div style="display: flex; margin-top: 10px;">
-                  <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Keterangan</div>
-                  <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
-                  <div>
-                      <textarea id="keterangan" name="keterangan" rows="4" cols="500" required style="width: 400px; border: 1px solid #e7e2e2"></textarea>
-                  </div>
-                </div>
-                <div style="display: flex; margin-top: 10px;">
-                  <div style="min-width: 510px; max-width: 510px; margin-right: 25px; font-size: 15px;"></div>
-                    <button type="submit" class="btn btn-success btn-block btn-flat" style="height: 30px; font-size: 14px; width: 100px; padding: 0px;">
-                        Submit
+                  <div style="margin-top: 10px; margin-left: 30px">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-block btn-flat"
+                      style="
+                        min-width: 150px;
+                        max-width: 150px;
+                        margin-right: 25px;
+                        font-size: 15px;
+                      "
+                      data-toggle="modal"
+                      data-target="#pengguna_modal"
+                      data-keyboard="false"
+                      data-backdrop="static"
+                    >
+                      Ambil Gambar
                     </button>
                   </div>
                 </div>
-             
-            </div>
-          </form>
-        </div>
-
-        <!-- tambah pengguna modal -->
-      <div class="modal fade" id="pengguna_modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title" id="formModalLabel">Ambil Gambar</h4>
-
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="tutupKameraModal">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div style="display: flex; margin-left: 30px; margin-top: 20px">
-              <div class="center">
-                <button type="button" class="btn btn-success" id="tombolNyalaKamera" style="font-size: 14px;">
-                    Nyalakan Kamera
-                </button>
-
-                <button type="button" class="btn btn-warning" id="tombolMatiKamera" style="font-size: 14px;">
-                    Matikan Kamera
-                </button>
-              </div>
-              <div class="center">
-                <button class="btn btn-primary" id="capture-btn">Ambil Gambar</button>
-              </div>
-            
-            </div>
-              <div class="center">
-                <button class="btn btn-primary" id="simpan-foto-btn">Simpan Foto</button>
-              </div>
-            <div class="modal-body">
-                <div style="margin-left: 65px">
-                  
-                    <div class="cell" style="float: none;">
-                      <video id="player" autoplay></video>
+                <div>
+                  <div style="display: flex; align-items: center">
+                    <div
+                      style="
+                        min-width: 200px;
+                        max-width: 200px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Tanggal Transaksi
                     </div>
-                    <div style="width: 320px;">
-                    <canvas id="canvas" width="320px" height="240px"></canvas>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
+                    <div style="font-size: 15px">
+                      <%= formatDate(new Date()) %>
+                    </div>
                   </div>
-                  
-                  <div id="pick-image">
-                    <label>Video is not supported. Pick an Image instead</label>
-                    <input type="file" accept="image/*" id="image-picker">
+
+                  <div
+                    style="display: flex; align-items: center; margin-top: 10px"
+                  >
+                    <div
+                      style="
+                        min-width: 200px;
+                        max-width: 200px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Status Kehadiran
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
+                    <div>
+                      <select
+                        class="form-control"
+                        id="status_kehadiran"
+                        name="status_kehadiran"
+                        required
+                        style="height: 35px; width: 100px; border-radius: 5px"
+                      >
+                        <option value="Hadir">Hadir</option>
+                        <option value="Izin">Izin</option>
+                        <option value="Sakit">Sakit</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; margin-top: 10px">
+                    <div
+                      style="
+                        min-width: 200px;
+                        max-width: 200px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Keterangan
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
+                    <div>
+                      <textarea
+                        id="keterangan"
+                        name="keterangan"
+                        rows="4"
+                        cols="500"
+                        required
+                        style="width: 400px; border: 1px solid #e7e2e2"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; margin-top: 10px">
+                    <div
+                      style="
+                        min-width: 510px;
+                        max-width: 510px;
+                        margin-right: 25px;
+                        font-size: 15px;
+                      "
+                    ></div>
+                    <button
+                      id="submit-absensi"
+                      type="submit"
+                      class="btn btn-success btn-block btn-flat"
+                      style="
+                        height: 30px;
+                        font-size: 14px;
+                        width: 100px;
+                        padding: 0px;
+                      "
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
-            </div>
+              </div>
+            </form>
           </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-        
-        
-      <table id="tabel-pengaturan" class="table table-bordered table-hover" style="width:100%; margin-top: 30px;">
+
+          <!-- tambah pengguna modal -->
+          <div class="modal fade" id="pengguna_modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="formModalLabel">Ambil Gambar</h4>
+
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    id="tutupKameraModal"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div style="display: flex; margin-left: 30px; margin-top: 20px">
+                  <div class="center">
+                    <button
+                      type="button"
+                      class="btn btn-success"
+                      id="tombolNyalaKamera"
+                      style="font-size: 14px"
+                    >
+                      Nyalakan Kamera
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn btn-warning"
+                      id="tombolMatiKamera"
+                      style="font-size: 14px"
+                    >
+                      Matikan Kamera
+                    </button>
+                  </div>
+                  <div class="center">
+                    <button class="btn btn-primary" id="capture-btn">
+                      Ambil Gambar
+                    </button>
+                  </div>
+                </div>
+                <div class="center">
+                  <button class="btn btn-primary" id="simpan-foto-btn">
+                    Simpan Foto
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div style="margin-left: 65px">
+                    <div class="cell" style="float: none">
+                      <video id="player" autoplay></video>
+                    </div>
+                    <div style="width: 320px">
+                      <canvas id="canvas" width="320px" height="240px"></canvas>
+                    </div>
+
+                    <div id="pick-image">
+                      <label
+                        >Video is not supported. Pick an Image instead</label
+                      >
+                      <input type="file" accept="image/*" id="image-picker" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
+
+          <table
+            id="tabel-pengaturan"
+            class="table table-bordered table-hover"
+            style="width: 100%; margin-top: 30px"
+          >
             <thead>
               <tr>
                 <th></th>
@@ -136,194 +276,330 @@
             </thead>
             <tbody>
               <% list_data.forEach(function(value, index) { %>
-                <tr data-id="<%= index %>">
-                    <td class="details-control"></i></td>
-                    <td><%= value['tgl_absensi'] %></td>
-                    <td><%= value['status_kehadiran'] %></td>
-                    <td><%= value['status_keterlambatan'] %></td>
-                    <td><%= value['tgl_input'] %></td>
-                    <td><%= value['tgl_ubah'] %></td>
-                    
-                    <td>
-                      <img src="<%= value['foto'] %>" alt="Foto" style="width: 100px; min-width: 100px; height: 100px; min-height: 100px; object-fit: cover; ">
-                    </td>
-                  </tr>
-                  <!-- <tr>
-                  <td colspan="6">Keterangan: <br/>-</td>
-                  </tr> -->
+              <tr data-id="<%= index %>">
+                <td class="details-control"></td>
+                <td><%= value['tgl_absensi'] %></td>
+                <td><%= value['status_kehadiran'] %></td>
+                <td><%= value['status_keterlambatan'] %></td>
+                <td><%= value['tgl_input'] %></td>
+                <td><%= value['tgl_ubah'] %></td>
+
+                <td>
+                  <img
+                    src="<%= value['foto'] %>"
+                    alt="Foto"
+                    style="
+                      width: 100px;
+                      min-width: 100px;
+                      height: 100px;
+                      min-height: 100px;
+                      object-fit: cover;
+                    "
+                  />
+                </td>
+              </tr>
+              <!-- <tr>
+              <td colspan="6">Keterangan: <br/>-</td>
+              </tr> -->
               <% }); %>
-                
             </tbody>
           </table>
-
-
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<%
-    function formatDate(date) {
-    // Define arrays for week names and month names
-    const weekNames = [
-      "Minggu",
-      "Senin",
-      "Selasa",
-      "Rabu",
-      "Kamis",
-      "Jumat",
-      "Sabtu",
-    ];
-    var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-
-    // Get day of the week, day, month, and year components from the date
-    const weekName = weekNames[date.getDay()];
-    const day = String(date.getDate()).padStart(2, "0"); // Ensure two digits for day
-    const monthName = monthNames[date.getMonth()];
-    const year = date.getFullYear();
-
-    // Return formatted date string in "WeekName, dd mmm yyyy" format
-    return `${weekName}, ${day} ${monthName} ${year}`;
-  }
+<% function formatDate(date) { // Define arrays for week names and month names
+  const weekNames = [ "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", ]; 
+  var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']; 
+  //Get day of the week, day, month, and year components from the date 
+  const weekName = weekNames[date.getDay()]; 
+  const day = String(date.getDate()).padStart(2, "0"); // Ensure two digits for day 
+  const monthName = monthNames[date.getMonth()]; const year = date.getFullYear(); //Return formatted date string in "WeekName, dd mmm yyyy" format 
+  return `${weekName}, ${day} ${monthName} ${year}`; } 
 %>
-
+  
 <script type="text/javascript">
+  function distance(coords1, coords2) {
+    const { lat: lat1, lon: lon1 } = coords1;
+    const { lat: lat2, lon: lon2 } = coords2;
+    const degToRad = (x) => (x * Math.PI) / 180;
+    const R = 6371;
+    const halfDLat = degToRad(lat2 - lat1) / 2;
+    const halfDLon = degToRad(lon2 - lon1) / 2;
+    const a =
+      Math.sin(halfDLat) * Math.sin(halfDLat) +
+      Math.cos(degToRad(lat1)) *
+        Math.cos(degToRad(lat2)) *
+        Math.sin(halfDLon) *
+        Math.sin(halfDLon);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  async function getCurrentLocation(latitude, longitude) {
+    try {
+      //lokasi kantor
+      // var loc = { lat: 0.495112, lon: 101.490986 };
+      var loc = { lat: 0.517567, lon: 101.448037 };
+
+      var currentLoc = { lat: latitude, lon: longitude };
+
+      var radius = distance(loc, currentLoc);
+
+      return radius;
+    } catch (error) {
+      console.error("Error fetching location:", error);
+      return false;
+    }
+  }
+
   jQuery.noConflict();
-(function($) {
-    $(document).ready(function() {
-      const list_data = JSON.parse(`<%- unescape(JSON.stringify(list_data).replace(/\\/g, '\\\\')) %>`);
-        var table = $('#tabel-pengaturan').DataTable({
-          "order": [[ 1, "desc" ]],
-          "columns": [
-            // Add more column definitions as needed
-            { "data": null, "orderable": false, "className": "details-control", "defaultContent": "<i class='fa fa-sort-up arrow-icon'></i>" }, // This column will contain the control to show/hide row details
-            { "data": "tanggal_absensi" },
-            { "data": "status_kehadiran" },
-            { "data": "status_keterlambatan" },
-            { "data": "tanggal_input" },
-            { "data": "tanggal_ubah" },
-            { "data": "foto", "orderable": false },
-          ],
-          "columnDefs": [
-            { "width": "220px", "targets": [5] }, // Set specific column widths
-            { "width": "150px", "targets": [1, 2] }, // Set specific column widths
-            {
-                "targets": 1, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                    // Parse the date string to a JavaScript Date object
-                    var date = new Date(data);
-                    // Create an array of week names
-                    var weekNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                    // Get the week name
-                    var weekName = weekNames[date.getDay()];
-                    // Get the day of the month
-                    var day = date.getDate();
-                    // Get the month name
-                    var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                    var monthName = monthNames[date.getMonth()];
-                    // Get the year
-                    var year = date.getFullYear();
-                    // Format the date string as 'weekname, day month year'
-                    var formattedDate = weekName + ', ' + day + ' ' + monthName + ' ' + year;
-                    // Return the formatted date
-                    if (type === 'sort' || type === 'type') {
-                        // For sorting and type detection, return a sortable format
-                        return year + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + day.toString().padStart(2, '0');
-                    } else {
-                        // For display, return the formatted date
-                        return formattedDate;
-                    }
-                }
-            },
-            {
-                "targets": 4, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                  return data ? new Date(data).toLocaleString() : ""
-                }
-            },
-            {
-                "targets": 5, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                  return data ? new Date(data).toLocaleString() : ""
-                }
+  (function ($) {
+    $(document).ready(function () {
+      var currentRadius = 0;
+
+      if ("geolocation" in navigator) {
+        $("#submit-absensi").prop("disabled", true);
+        navigator.geolocation.getCurrentPosition(async function (position) {
+          console.log("Latitude:", position.coords.latitude);
+          console.log("Longitude:", position.coords.longitude);
+          var radius = await getCurrentLocation(
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          var isValidRadius = 0;
+
+          if (radius) {
+            radius = radius.toFixed(4);
+
+            if (radius < 2) {
+              isValidRadius = radius;
             }
-        ]
-        });
-        
-        // Add event listener for opening and closing details
-        $('#tabel-pengaturan tbody').on('click', 'td.details-control', function () {
-            var tr = $(this).closest('tr');
+            currentRadius = radius;
+          }
 
-            $(this).find('.arrow-icon').toggleClass('fa-sort-up fa-sort-down');
-
-            var row = table.row(tr);
-
-            var dataId = tr.data('id');
-            
-            if (row.child.isShown()) {
-                // This row is already open - close it
-                row.child.hide();
-                tr.removeClass('shown');
+          setTimeout(function () {
+            if (!isValidRadius) {
+              $("#lokasi-info").html(`
+                  <div style="color: red"><i class="fa fa-times-circle-o" style="margin-right: 5px;"></i>Tidak dapat melakukan absensi dengan status 'Hadir'. Anda berada di luar area kantor - (${radius} km).</div>
+              `);
+              $("#submit-absensi").css("background-color", "#818181");
+              $("#submit-absensi").css("border-color", "#818181");
             } else {
-                // Open this row
-                row.child(getRowDetail(dataId)).show();
-                tr.addClass('shown');
+              $("#lokasi-info").html(`
+                  <div style="color: #07c707"><i class="fa fa-check-circle-o" style="margin-right: 5px;"></i> Dapat melakukan absensi. Anda berada di dalam area kantor - (${radius} km).</div>
+              `);
+              $("#submit-absensi").prop("disabled", false);
             }
+          }, 300); // 2000 milliseconds (2 seconds)
         });
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
 
-        function getRowDetail(index) {
-            // `d` is the original data object for the row
-            return '<div style="padding-left: 15px;"><b>Keterangan</b>: '+ list_data[index]['keterangan'].replace(/\r\n/g, "<br>").replace(/\\n/g, "<br>"); +'</div>';
+      const list_data = JSON.parse(
+        `<%- unescape(JSON.stringify(list_data).replace(/\\/g, '\\\\')) %>`
+      );
+      var table = $("#tabel-pengaturan").DataTable({
+        order: [[1, "desc"]],
+        columns: [
+          // Add more column definitions as needed
+          {
+            data: null,
+            orderable: false,
+            className: "details-control",
+            defaultContent: "<i class='fa fa-sort-up arrow-icon'></i>",
+          }, // This column will contain the control to show/hide row details
+          { data: "tanggal_absensi" },
+          { data: "status_kehadiran" },
+          { data: "status_keterlambatan" },
+          { data: "tanggal_input" },
+          { data: "tanggal_ubah" },
+          { data: "foto", orderable: false },
+        ],
+        columnDefs: [
+          { width: "220px", targets: [5] }, // Set specific column widths
+          { width: "150px", targets: [1, 2] }, // Set specific column widths
+          {
+            targets: 1, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              // Parse the date string to a JavaScript Date object
+              var date = new Date(data);
+              // Create an array of week names
+              var weekNames = [
+                "Minggu",
+                "Senin",
+                "Selasa",
+                "Rabu",
+                "Kamis",
+                "Jumat",
+                "Sabtu",
+              ];
+              // Get the week name
+              var weekName = weekNames[date.getDay()];
+              // Get the day of the month
+              var day = date.getDate();
+              // Get the month name
+              var monthNames = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+              ];
+              var monthName = monthNames[date.getMonth()];
+              // Get the year
+              var year = date.getFullYear();
+              // Format the date string as 'weekname, day month year'
+              var formattedDate =
+                weekName + ", " + day + " " + monthName + " " + year;
+              // Return the formatted date
+              if (type === "sort" || type === "type") {
+                // For sorting and type detection, return a sortable format
+                return (
+                  year +
+                  "-" +
+                  (date.getMonth() + 1).toString().padStart(2, "0") +
+                  "-" +
+                  day.toString().padStart(2, "0")
+                );
+              } else {
+                // For display, return the formatted date
+                return formattedDate;
+              }
+            },
+          },
+          {
+            targets: 4, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              return data ? new Date(data).toLocaleString() : "";
+            },
+          },
+          {
+            targets: 5, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              return data ? new Date(data).toLocaleString() : "";
+            },
+          },
+        ],
+      });
+
+      // Add event listener for opening and closing details
+      $("#tabel-pengaturan tbody").on(
+        "click",
+        "td.details-control",
+        function () {
+          var tr = $(this).closest("tr");
+
+          $(this).find(".arrow-icon").toggleClass("fa-sort-up fa-sort-down");
+
+          var row = table.row(tr);
+
+          var dataId = tr.data("id");
+
+          if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass("shown");
+          } else {
+            // Open this row
+            row.child(getRowDetail(dataId)).show();
+            tr.addClass("shown");
+          }
         }
+      );
+
+      function getRowDetail(index) {
+        // `d` is the original data object for the row
+        return (
+          '<div style="padding-left: 15px;"><b>Keterangan</b>: ' +
+          list_data[index]["keterangan"]
+            .replace(/\r\n/g, "<br>")
+            .replace(/\\n/g, "<br>")
+        );
+        +"</div>";
+      }
+
+
+      $("#status_kehadiran").change(function(){
+          var selectedOption = $(this).children("option:selected").text();
+
+          var isDisabled = true;
+          if(selectedOption != "Hadir"){
+            isDisabled = false;
+          }else{
+            if(currentRadius < 2){
+              isDisabled = false; 
+            }
+          }
+
+          if(isDisabled){
+            $("#submit-absensi").prop("disabled", true);
+            $("#submit-absensi").css("background-color", "#818181");
+            $("#submit-absensi").css("border-color", "#818181");
+          }else{
+            $("#submit-absensi").prop("disabled", false);
+            $("#submit-absensi").css("background-color", "#26B99A");
+            $("#submit-absensi").css("border-color", "#169F85");
+          }
+      });
     });
   })(jQuery);
 
+  function hapusData(id, nama) {
+    var isDelete = confirm(
+      'Apakah anda yakin akan menghapus jenis kegiatan "' + nama + '"'
+    );
 
-function hapusData(id, nama){
-  var isDelete = confirm('Apakah anda yakin akan menghapus jenis kegiatan "' + nama +'"');
-
-  if(isDelete){
-    document.location.href='/jenis_kegiatan/hapus/' + id;
+    if (isDelete) {
+      document.location.href = "/jenis_kegiatan/hapus/" + id;
+    }
   }
-}
 
-document.getElementById('formAbsensi').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Prevent the default form submission
-    const formData = new FormData(this); // Create FormData object with form data
-    await fetch('/upload', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.text(); // Assuming the server sends back a plain text response
-    })
-    .then(async data => {
-      var formData2 = formData; // Create FormData object with form data
-
-      formData2['foto'] = data;
-
-      await fetch('/absensi/tambah', {
-        method: 'POST',
-        body: formData2
+  document
+    .getElementById("formAbsensi")
+    .addEventListener("submit", async function (event) {
+      event.preventDefault(); // Prevent the default form submission
+      const formData = new FormData(this); // Create FormData object with form data
+      await fetch("/upload", {
+        method: "POST",
+        body: formData,
       })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        
-        document.location.href='/absensi';
-      })
-      
-    })
-    .catch(error => {
-      console.error('There was a problem with the fetch operation:', error);
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.text(); // Assuming the server sends back a plain text response
+        })
+        .then(async (data) => {
+          var formData2 = formData; // Create FormData object with form data
+
+          formData2["foto"] = data;
+
+          await fetch("/absensi/tambah", {
+            method: "POST",
+            body: formData2,
+          }).then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+
+            document.location.href = "/absensi";
+          });
+        })
+        .catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+        });
     });
-  });
 </script>
 <!-- /page content -->
 

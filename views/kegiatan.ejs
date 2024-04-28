@@ -1,243 +1,422 @@
-<!DOCTYPE html>
-<html>
-  <%- include('layouts/head.ejs')%>
-  <body>
-    <%- include('layouts/navbar.ejs')%>
-    <%- include('layouts/sidebar.ejs')%>
+<%- include('layouts/head.ejs')%> <%- include('layouts/navbar.ejs')%> <%-
+include('layouts/sidebar.ejs')%>
 <!-- page content -->
 <div class="right_col" role="main">
   <div class="">
-    <div class="col-md-12 col-sm-12  ">
+    <div class="col-md-12 col-sm-12">
       <div class="x_panel">
-      <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
+        <div
+          class="x_title"
+          style="
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          "
+        >
           <h2>Daftar Kegiatan</h2>
-          
         </div>
-        
+
         <div class="x_content">
-          <div style="margin-top: 20px;">
+          <div style="margin-top: 20px">
             <form action="/kegiatan/tambah" method="POST">
               <div style="display: flex">
-            
                 <div>
-                  <div style="display: flex; align-items: center;">
-                    <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Tanggal Transaksi</div>
-                    <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
-                    <div style="font-size: 15px;">
+                  <div style="display: flex; align-items: center">
+                    <div
+                      style="
+                        min-width: 200px;
+                        max-width: 200px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Tanggal Transaksi
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
+                    <div style="font-size: 15px">
                       <%= formatDate(new Date()) %>
                     </div>
                   </div>
-    
 
-                  <div style="display: flex; margin-top: 10px; align-items: center;">
-                    <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Waktu Mulai</div>
-                    <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
+                  <div
+                    style="display: flex; margin-top: 10px; align-items: center"
+                  >
+                    <div
+                      style="
+                        min-width: 200px;
+                        max-width: 200px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Waktu Mulai
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
                     <div>
-                        <input type="time" id="waktu_mulai" name="waktu_mulai" required style="height:40px; width: 100px; border: 1px solid #e7e2e2; padding: 10px;"></input>
+                      <input
+                        type="time"
+                        id="waktu_mulai"
+                        name="waktu_mulai"
+                        required
+                        style="
+                          height: 40px;
+                          width: 100px;
+                          border: 1px solid #e7e2e2;
+                          padding: 10px;
+                        "
+                      />
                     </div>
                   </div>
 
-                  <div style="display: flex; margin-top: 10px; align-items: center;">
-                    <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Waktu Selesai</div>
-                    <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
+                  <div
+                    style="display: flex; margin-top: 10px; align-items: center"
+                  >
+                    <div
+                      style="
+                        min-width: 200px;
+                        max-width: 200px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Waktu Selesai
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
                     <div>
-                        <input type="time" id="waktu_selesai" name="waktu_selesai" required style="height:40px; width: 100px; border: 1px solid #e7e2e2; padding: 10px;"></input>
+                      <input
+                        type="time"
+                        id="waktu_selesai"
+                        name="waktu_selesai"
+                        required
+                        style="
+                          height: 40px;
+                          width: 100px;
+                          border: 1px solid #e7e2e2;
+                          padding: 10px;
+                        "
+                      />
                     </div>
                   </div>
 
-                  <div style="display: flex; margin-top: 10px; align-items: center;">
-                    <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Kegiatan</div>
-                    <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
+                  <div
+                    style="display: flex; margin-top: 10px; align-items: center"
+                  >
+                    <div
+                      style="
+                        min-width: 200px;
+                        max-width: 200px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Kegiatan
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
                     <div>
-                      <select class="form-control" id="jenis_kegiatan" name="jenis_kegiatan" required>
+                      <select
+                        class="form-control"
+                        id="jenis_kegiatan"
+                        name="jenis_kegiatan"
+                        required
+                      >
                         <option value="lainnya">Lainnya</option>
                         <% list_jenis_kegiatan.forEach(function(value) { %>
-                          <option value="<%= value['_id'] %>"><%= value['nama'] %></option>
+                        <option value="<%= value['_id'] %>">
+                          <%= value['nama'] %>
+                        </option>
                         <% }); %>
                       </select>
                     </div>
                   </div>
-                  
-                  <div style="display: flex; margin-top: 10px;">
-                    <div style="min-width: 200px; max-width: 200px; margin-right: 15px; font-size: 15px;">Keterangan</div>
-                    <div style="min-width: 10px; max-width: 10px;  margin-right: 10px;">:</div>
+
+                  <div style="display: flex; margin-top: 10px">
+                    <div
+                      style="
+                        min-width: 200px;
+                        max-width: 200px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Keterangan
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
                     <div>
-                        <textarea id="keterangan" name="keterangan" rows="4" cols="500" required style="width: 400px; border: 1px solid #e7e2e2"></textarea>
+                      <textarea
+                        id="keterangan"
+                        name="keterangan"
+                        rows="4"
+                        cols="500"
+                        required
+                        style="width: 400px; border: 1px solid #e7e2e2"
+                      ></textarea>
                     </div>
                   </div>
 
-                  <div style="display: flex; margin-top: 10px;">
-                    <div style="min-width: 510px; max-width: 510px; margin-right: 25px; font-size: 15px;"></div>
-                      <button type="submit" class="btn btn-success btn-block btn-flat" style="height: 30px; font-size: 14px; width: 100px; padding: 0px;">
-                          Submit
-                      </button>
-                    </div>
+                  <div style="display: flex; margin-top: 10px">
+                    <div
+                      style="
+                        min-width: 510px;
+                        max-width: 510px;
+                        margin-right: 25px;
+                        font-size: 15px;
+                      "
+                    ></div>
+                    <button
+                      type="submit"
+                      class="btn btn-success btn-block btn-flat"
+                      style="
+                        height: 30px;
+                        font-size: 14px;
+                        width: 100px;
+                        padding: 0px;
+                      "
+                    >
+                      Submit
+                    </button>
                   </div>
+                </div>
               </div>
             </form>
           </div>
         </div>
         <!-- /.modal-dialog -->
-      <!-- /.modal -->
-        
-        
-      <table id="tabel-pengaturan" class="table table-bordered table-hover" style="width:100%; margin-top: 30px;">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Tanggal Kegiatan</th>
-                <th>Waktu Mulai</th>
-                <th>Waktu Selesai</th>
-                <th>Nama Kegiatan</th>
-                <th>Tanggal Input</th>
-                <th>Tanggal Ubah</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% list_data.forEach(function(value, index) { %>
-                <tr data-id="<%= index %>">
-                    <td class="details-control"></i></td>
-                    <td><%= value['tgl_kegiatan'] %></td>
-                    <td><%= value['waktu_mulai'] %></td>
-                    <td><%= value['waktu_selesai'] %></td>
-                    <td><%= value['jenis_kegiatan'] ? value['jenis_kegiatan']['nama'] ? value['jenis_kegiatan']['nama'] : "Lainnya" : "Lainnya" %></td>
-                    <td><%= value['tgl_input'] %></td>
-                    <td><%= value['tgl_ubah'] %></td>
-                  </tr>
-              <% }); %>
-                
-            </tbody>
-          </table>
+        <!-- /.modal -->
 
-</div>
-        </div>
+        <table
+          id="tabel-pengaturan"
+          class="table table-bordered table-hover"
+          style="width: 100%; margin-top: 30px"
+        >
+          <thead>
+            <tr>
+              <th></th>
+              <th>Tanggal Kegiatan</th>
+              <th>Waktu Mulai</th>
+              <th>Waktu Selesai</th>
+              <th>Nama Kegiatan</th>
+              <th>Tanggal Input</th>
+              <th>Tanggal Ubah</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% list_data.forEach(function(value, index) { %>
+            <tr data-id="<%= index %>">
+              <td class="details-control"></td>
+              <td><%= value['tgl_kegiatan'] %></td>
+              <td><%= value['waktu_mulai'] %></td>
+              <td><%= value['waktu_selesai'] %></td>
+              <td>
+                <%= value['jenis_kegiatan'] ? value['jenis_kegiatan']['nama'] ?
+                value['jenis_kegiatan']['nama'] : "Lainnya" : "Lainnya" %>
+              </td>
+              <td><%= value['tgl_input'] %></td>
+              <td><%= value['tgl_ubah'] %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
-<%
-    function formatDate(date) {
-    // Define arrays for week names and month names
-    const weekNames = [
-      "Minggu",
-      "Senin",
-      "Selasa",
-      "Rabu",
-      "Kamis",
-      "Jumat",
-      "Sabtu",
-    ];
-    var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-
-    // Get day of the week, day, month, and year components from the date
-    const weekName = weekNames[date.getDay()];
-    const day = String(date.getDate()).padStart(2, "0"); // Ensure two digits for day
-    const monthName = monthNames[date.getMonth()];
-    const year = date.getFullYear();
-
-    // Return formatted date string in "WeekName, dd mmm yyyy" format
-    return `${weekName}, ${day} ${monthName} ${year}`;
-  }
+<% function formatDate(date) { // Define arrays for week names and month names
+  const weekNames = [ "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", ]; 
+  var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']; 
+  //Get day of the week, day, month, and year components from the date 
+  const weekName = weekNames[date.getDay()]; 
+  const day = String(date.getDate()).padStart(2, "0"); // Ensure two digits for day 
+  const monthName = monthNames[date.getMonth()]; const year = date.getFullYear(); //Return formatted date string in "WeekName, dd mmm yyyy" format 
+  return `${weekName}, ${day} ${monthName} ${year}`; } 
 %>
 
 <script type="text/javascript">
   jQuery.noConflict();
-(function($) {
-    $(document).ready(function() {
-      const list_data = JSON.parse(`<%- unescape(JSON.stringify(list_data).replace(/\\/g, '\\\\')) %>`);
-        var table = $('#tabel-pengaturan').DataTable({
-          "order": [[ 1, "desc" ]],
-          "columns": [
-            // Add more column definitions as needed
-            { "data": null, "orderable": false, "className": "details-control", "defaultContent": "<i class='fa fa-sort-up arrow-icon'></i>" }, // This column will contain the control to show/hide row details
-            { "data": "tgl_kegiatan" },
-            { "data": "waktu_mulai" },
-            { "data": "waktu_selesai" },
-            { "data": "jenis_kegiatan" },
-            { "data": "tanggal_input" },
-            { "data": "tanggal_ubah" },
-          ],
-          "columnDefs": [
-            { "width": "220px", "targets": [5] }, // Set specific column widths
-            { "width": "150px", "targets": [1, 2] }, // Set specific column widths
-            {
-                "targets": 1, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                    // Parse the date string to a JavaScript Date object
-                    var date = new Date(data);
-                    // Create an array of week names
-                    var weekNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                    // Get the week name
-                    var weekName = weekNames[date.getDay()];
-                    // Get the day of the month
-                    var day = date.getDate();
-                    // Get the month name
-                    var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                    var monthName = monthNames[date.getMonth()];
-                    // Get the year
-                    var year = date.getFullYear();
-                    // Format the date string as 'weekname, day month year'
-                    var formattedDate = weekName + ', ' + day + ' ' + monthName + ' ' + year;
-                    // Return the formatted date
-                    if (type === 'sort' || type === 'type') {
-                        // For sorting and type detection, return a sortable format
-                        return year + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + day.toString().padStart(2, '0');
-                    } else {
-                        // For display, return the formatted date
-                        return formattedDate;
-                    }
-                }
+  (function ($) {
+    $(document).ready(function () {
+      const list_data = JSON.parse(
+        `<%- unescape(JSON.stringify(list_data).replace(/\\/g, '\\\\')) %>`
+      );
+      var table = $("#tabel-pengaturan").DataTable({
+        order: [[1, "desc"]],
+        columns: [
+          // Add more column definitions as needed
+          {
+            data: null,
+            orderable: false,
+            className: "details-control",
+            defaultContent: "<i class='fa fa-sort-up arrow-icon'></i>",
+          }, // This column will contain the control to show/hide row details
+          { data: "tgl_kegiatan" },
+          { data: "waktu_mulai" },
+          { data: "waktu_selesai" },
+          { data: "jenis_kegiatan" },
+          { data: "tanggal_input" },
+          { data: "tanggal_ubah" },
+        ],
+        columnDefs: [
+          { width: "220px", targets: [5] }, // Set specific column widths
+          { width: "150px", targets: [1, 2] }, // Set specific column widths
+          {
+            targets: 1, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              // Parse the date string to a JavaScript Date object
+              var date = new Date(data);
+              // Create an array of week names
+              var weekNames = [
+                "Minggu",
+                "Senin",
+                "Selasa",
+                "Rabu",
+                "Kamis",
+                "Jumat",
+                "Sabtu",
+              ];
+              // Get the week name
+              var weekName = weekNames[date.getDay()];
+              // Get the day of the month
+              var day = date.getDate();
+              // Get the month name
+              var monthNames = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+              ];
+              var monthName = monthNames[date.getMonth()];
+              // Get the year
+              var year = date.getFullYear();
+              // Format the date string as 'weekname, day month year'
+              var formattedDate =
+                weekName + ", " + day + " " + monthName + " " + year;
+              // Return the formatted date
+              if (type === "sort" || type === "type") {
+                // For sorting and type detection, return a sortable format
+                return (
+                  year +
+                  "-" +
+                  (date.getMonth() + 1).toString().padStart(2, "0") +
+                  "-" +
+                  day.toString().padStart(2, "0")
+                );
+              } else {
+                // For display, return the formatted date
+                return formattedDate;
+              }
             },
-            {
-                "targets": 5, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                  return data ? new Date(data).toLocaleString() : ""
-                }
+          },
+          {
+            targets: 5, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              return data ? new Date(data).toLocaleString() : "";
             },
-            {
-                "targets": 6, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                  return data ? new Date(data).toLocaleString() : ""
-                }
-            }
-        ]
-        });
-        
-        // Add event listener for opening and closing details
-        $('#tabel-pengaturan tbody').on('click', 'td.details-control', function () {
-            var tr = $(this).closest('tr');
+          },
+          {
+            targets: 6, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              return data ? new Date(data).toLocaleString() : "";
+            },
+          },
+        ],
+      });
 
-            $(this).find('.arrow-icon').toggleClass('fa-sort-up fa-sort-down');
+      // Add event listener for opening and closing details
+      $("#tabel-pengaturan tbody").on(
+        "click",
+        "td.details-control",
+        function () {
+          var tr = $(this).closest("tr");
 
-            var row = table.row(tr);
+          $(this).find(".arrow-icon").toggleClass("fa-sort-up fa-sort-down");
 
-            var dataId = tr.data('id');
-            
-            if (row.child.isShown()) {
-                // This row is already open - close it
-                row.child.hide();
-                tr.removeClass('shown');
-            } else {
-                // Open this row
-                row.child(getRowDetail(dataId)).show();
-                tr.addClass('shown');
-            }
-        });
+          var row = table.row(tr);
 
-        function getRowDetail(index) {
-            // `d` is the original data object for the row
-            return '<div style="padding-left: 15px;"><b>Keterangan</b>: '+ list_data[index]['keterangan'].replace(/\r\n/g, "<br>").replace(/\\n/g, "<br>"); +'</div>';
+          var dataId = tr.data("id");
+
+          if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass("shown");
+          } else {
+            // Open this row
+            row.child(getRowDetail(dataId)).show();
+            tr.addClass("shown");
+          }
         }
+      );
+
+      function getRowDetail(index) {
+        // `d` is the original data object for the row
+        return (
+          '<div style="padding-left: 15px;"><b>Keterangan</b>: ' +
+          list_data[index]["keterangan"]
+            .replace(/\r\n/g, "<br>")
+            .replace(/\\n/g, "<br>")
+        );
+        +"</div>";
+      }
     });
   })(jQuery);
 
+  function hapusData(id, nama) {
+    var isDelete = confirm(
+      'Apakah anda yakin akan menghapus jenis kegiatan "' + nama + '"'
+    );
 
-function hapusData(id, nama){
-  var isDelete = confirm('Apakah anda yakin akan menghapus jenis kegiatan "' + nama +'"');
-
-  if(isDelete){
-    document.location.href='/jenis_kegiatan/hapus/' + id;
+    if (isDelete) {
+      document.location.href = "/jenis_kegiatan/hapus/" + id;
+    }
   }
-}
 </script>
 <!-- /page content -->
 

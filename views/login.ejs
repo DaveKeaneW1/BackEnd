@@ -33,7 +33,7 @@
       toastr.options = {
         closeButton: true, // Show close button
         timeOut: 0, // Set timeOut to 0 to make it sticky until user closes it
-        extendedTimeOut: 0 // Set extendedTimeOut to 0 to make it sticky until user closes it
+        extendedTimeOut: 0, // Set extendedTimeOut to 0 to make it sticky until user closes it
       };
       function showToast(message, type) {
         if (type === "info") {
@@ -48,7 +48,9 @@
       }
     </script>
 
-    <% if (typeof req.session !== undefined && req.session != null && req.session.alert_message != undefined && req.session.alert_message != null) { %> <% var alert_message = req.session.alert_message; %>
+    <% if (typeof req.session !== undefined && req.session != null &&
+    req.session.alert_message != undefined && req.session.alert_message != null)
+    { %> <% var alert_message = req.session.alert_message; %>
     <script type="text/javascript">
       showToast(
         "<%= alert_message['message']%>",

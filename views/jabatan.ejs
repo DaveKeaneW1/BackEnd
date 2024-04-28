@@ -1,85 +1,137 @@
-<!DOCTYPE html>
-<html>
-  <%- include('layouts/head.ejs')%>
-  <body>
-    <%- include('layouts/navbar.ejs')%>
-    <%- include('layouts/sidebar.ejs')%>
+<%- include('layouts/head.ejs')%> <%- include('layouts/navbar.ejs')%> <%-
+include('layouts/sidebar.ejs')%>
 <!-- page content -->
 <div class="right_col" role="main">
   <div class="">
-    <div class="col-md-12 col-sm-12  ">
+    <div class="col-md-12 col-sm-12">
       <div class="x_panel">
-        <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
+        <div
+          class="x_title"
+          style="
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          "
+        >
           <h2>Daftar Jabatan</h2>
-          <div style="margin-left: 15px;">
-            <button type="button" class="btn btn-success btn-block btn-flat tombolTambahDataJabatan" style="height: 38px; font-size: 14px;" data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static">
+          <div style="margin-left: 15px">
+            <button
+              type="button"
+              class="btn btn-success btn-block btn-flat tombolTambahDataJabatan"
+              style="height: 38px; font-size: 14px"
+              data-toggle="modal"
+              data-target="#jabatan_modal"
+              data-keyboard="false"
+              data-backdrop="static"
+            >
               Tambah Jabatan
-          </button>
+            </button>
           </div>
         </div>
         <div class="x_content">
-
-      <!-- tambah jabatan modal -->
-      <div class="modal fade" id="jabatan_modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title" id="formModalLabel">Tambah Data Jabatan</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form action="/jabatan/tambah" method="POST">
-                <input type="hidden" name="id" id="id">
-                <div class="form-group">
-                  <label for="nama">Nama</label>
-                  <input type="text" class="form-control" id="nama" name="nama" required>
+          <!-- tambah jabatan modal -->
+          <div class="modal fade" id="jabatan_modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="formModalLabel">
+                    Tambah Data Jabatan
+                  </h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
+                <form action="/jabatan/tambah" method="POST">
+                  <div class="modal-body">
+                    <input type="hidden" name="id" id="id" />
+                    <div class="form-group">
+                      <label for="nama">Nama</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nama"
+                        name="nama"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Tutup
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                      Tambah
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.modal-content -->
             </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-              <button type="submit" class="btn btn-success">Tambah</button>
-              </form>
-            </div>
+            <!-- /.modal-dialog -->
           </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
+          <!-- /.modal -->
 
-
-      <!-- tabel data jabatan  -->
-      <table id="tabel-pengaturan" class="table table-bordered table-hover" style="width:100%">
-        <thead>
-            <tr>
+          <!-- tabel data jabatan  -->
+          <table
+            id="tabel-pengaturan"
+            class="table table-bordered table-hover"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
                 <th>Nama</th>
                 <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-          <% list_jabatan.forEach(function(value) { %>
-            <tr>
+              </tr>
+            </thead>
+            <tbody>
+              <% list_jabatan.forEach(function(value) { %>
+              <tr>
                 <td><%= value['nama'] %></td>
                 <td>
-                  <div style="display: flex;">
-                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahDataJabatan" style="margin-right:10px; max-width: 90px; height: 33px;"
-                      data-toggle="modal" data-target="#jabatan_modal" data-keyboard="false" data-backdrop="static" data-id="<%= value[`_id`] %>">
-                      <i class="fa fa-edit" style="margin-right:10px"></i>Ubah
-                    </button>
-                    <button type="button" type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px; padding: 5px 10px; height: 33px;"
-                    onclick="hapusJabatan('<%=value[`_id`]%>', '<%=value[`nama`]%>')" 
+                  <div style="display: flex">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-block btn-sm tombolUbahDataJabatan"
+                      style="margin-right: 10px; max-width: 90px; height: 33px"
+                      data-toggle="modal"
+                      data-target="#jabatan_modal"
+                      data-keyboard="false"
+                      data-backdrop="static"
+                      data-id="<%= value[`_id`] %>"
                     >
-                      <i class="fa fa-trash" style="margin-right:10px"></i>Hapus
-                    </button>  
+                      <i class="fa fa-edit" style="margin-right: 10px"></i>Ubah
+                    </button>
+                    <button
+                      type="button"
+                      type="button"
+                      class="btn btn-danger btn-block btn-sm"
+                      style="
+                        margin-top: 0px;
+                        max-width: 90px;
+                        padding: 5px 10px;
+                        height: 33px;
+                      "
+                      onclick="hapusJabatan('<%=value[`_id`]%>', '<%=value[`nama`]%>')"
+                    >
+                      <i class="fa fa-trash" style="margin-right: 10px"></i
+                      >Hapus
+                    </button>
                   </div>
                 </td>
-            </tr>
-          <% }); %>
-        </tbody>
-    </table>
-
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -88,64 +140,62 @@
 
 <script type="text/javascript">
   jQuery.noConflict();
-(function($) {
-    $(document).ready(function() {
-        $('#tabel-pengaturan').DataTable({
-          "columnDefs": [
-            { "width": "220px", "targets": [1] } // Set specific column widths
-          ],
-          "columns": [
-            // Add more column definitions as needed
-            { "data": "nama" },
-            { "data": "aksi", "orderable": false }
-          ]
-        });
-
-      
+  (function ($) {
+    $(document).ready(function () {
+      $("#tabel-pengaturan").DataTable({
+        columnDefs: [
+          { width: "220px", targets: [1] }, // Set specific column widths
+        ],
+        columns: [
+          // Add more column definitions as needed
+          { data: "nama" },
+          { data: "aksi", orderable: false },
+        ],
+      });
     });
 
-      $(function () {
-        $('.tombolTambahDataJabatan').on('click', function () {
-        $('#formModalLabel').html('Tambah Data Jabatan');
-        $('.modal-footer button[type=submit]').html('Tambah');
-        $('.modal-body form').attr('action', '/jabatan/tambah');
+    $(function () {
+      $(".tombolTambahDataJabatan").on("click", function () {
+        $("#formModalLabel").html("Tambah Data Jabatan");
+        $(".modal-footer button[type=submit]").html("Tambah");
+        $(".#jabatan_modal form").attr("action", "/jabatan/tambah");
 
-        $('#nama').val('');
-        $('#id').val('');
-      })
+        $("#nama").val("");
+        $("#id").val("");
+      });
 
-      $('.tombolUbahDataJabatan').on('click', function () {
-        $('#formModalLabel').html('Ubah Data Jabatan');
-        $('.modal-footer button[type=submit]').html('Ubah');
-        $('.modal-body form').attr('action', '/jabatan/ubah');
+      $(".tombolUbahDataJabatan").on("click", function () {
+        $("#formModalLabel").html("Ubah Data Jabatan");
+        $(".modal-footer button[type=submit]").html("Ubah");
+        $("#jabatan_modal form").attr("action", "/jabatan/ubah");
 
-        const id = $(this).data('id');
+        const id = $(this).data("id");
 
         $.ajax({
-          url: '/jabatan/getubah',
+          url: "/jabatan/getubah",
           data: { id: id },
           method: "post",
-          dataType: 'json',
+          dataType: "json",
           success: function (data) {
-            $('#nama').val(data.nama);
-            $('#id').val(data["_id"]);
-
+            $("#nama").val(data.nama);
+            $("#id").val(data["_id"]);
           },
           error: function (xhr, status, error) {
             console.error("Error occurred:", error);
-          // Handle error
-          }
-        })
-      })
-      })
-})(jQuery);
+            // Handle error
+          },
+        });
+      });
+    });
+  })(jQuery);
 
+  function hapusJabatan(id_jabatan, nama_jabatan) {
+    var isDelete = confirm(
+      'Apakah anda yakin akan menghapus jabatan "' + nama_jabatan + '"'
+    );
 
-  function hapusJabatan(id_jabatan, nama_jabatan){
-    var isDelete = confirm('Apakah anda yakin akan menghapus jabatan "' + nama_jabatan +'"');
-
-    if(isDelete){
-      document.location.href='/jabatan/hapus/' + id_jabatan;
+    if (isDelete) {
+      document.location.href = "/jabatan/hapus/" + id_jabatan;
     }
   }
 </script>

@@ -1,192 +1,278 @@
-<!DOCTYPE html>
-<html>
-  <%- include('layouts/head.ejs')%>
-  <body>
-    <%- include('layouts/navbar.ejs')%>
-    <%- include('layouts/sidebar.ejs')%>
-    <!-- page content -->
-    <div class="right_col" role="main">
-      <div class="">
-        <div class="col-md-12 col-sm-12  ">
-          <div class="x_panel">
-          <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
-              <h2>Laporan Absensi</h2>
-              
-            </div>
-            <div style="display: flex; margin: 0 10px 30px 10px; flex-wrap: wrap; row-gap: 10px;">
-              <form action="/laporan_absensi/cari" method="post">
-                <div style="display: flex; flex-wrap: wrap;">
-                  <div style="display: flex; margin-right: 10px; align-items: center;">
-                    <div style="min-width: 100px; font-weight: 600;">Tanggal</div>
-                    <div style="margin-left: 10px; margin-right: 10px;">:</div>
-                    <div>
-                      <input type="date" id="tgl_awal" name="tgl_awal" class="date-custom" 
-                      value="<%= tgl_awal %>">
-                    </div>
-                  </div>
-                  <div style="display: flex;  margin-right: 20px; align-items: center;">
-                    <div style="min-width: 20px; font-weight: 600;">-</div>
-                    <div>
-                      <input type="date" id="tgl_akhir" name="tgl_akhir" class="date-custom"
-                        value="<%= tgl_akhir %>">
-                    </div>
-                  </div>
-                  <div style="display: flex;">
-                    <button type="submit" class="btn btn-info btn-block btn-flat">
-                      <span aria-hidden="true" style="color: white;"><i class="fa fa-search" style="margin-right:5px"></i> Cari</span>
-                    </button>
-                  </div>
+<%- include('layouts/head.ejs')%> <%- include('layouts/navbar.ejs')%> <%-
+include('layouts/sidebar.ejs')%>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="col-md-12 col-sm-12">
+      <div class="x_panel">
+        <div
+          class="x_title"
+          style="
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          "
+        >
+          <h2>Laporan Absensi</h2>
+        </div>
+        <div
+          style="
+            display: flex;
+            margin: 0 10px 30px 10px;
+            flex-wrap: wrap;
+            row-gap: 10px;
+          "
+        >
+          <form action="/laporan_absensi/cari" method="post">
+            <div style="display: flex; flex-wrap: wrap">
+              <div
+                style="display: flex; margin-right: 10px; align-items: center"
+              >
+                <div style="min-width: 100px; font-weight: 600">Tanggal</div>
+                <div style="margin-left: 10px; margin-right: 10px">:</div>
+                <div>
+                  <input
+                    type="date"
+                    id="tgl_awal"
+                    name="tgl_awal"
+                    class="date-custom"
+                    value="<%= tgl_awal %>"
+                  />
                 </div>
-              </form>
-    
-              <div style="display: flex; margin-left: 5px;">
-                <form action="/laporan_absensi/reset" method="post">
-                  <button type="submit" class="btn btn-secondary btn-block btn-flat">
-                    <span aria-hidden="true" style="color: white;"><i class="fa fa-filter" style="margin-right:5px"></i> Reset Filter</span>
-                  </button>
-                </form>
               </div>
-    
+              <div
+                style="display: flex; margin-right: 20px; align-items: center"
+              >
+                <div style="min-width: 20px; font-weight: 600">-</div>
+                <div>
+                  <input
+                    type="date"
+                    id="tgl_akhir"
+                    name="tgl_akhir"
+                    class="date-custom"
+                    value="<%= tgl_akhir %>"
+                  />
+                </div>
+              </div>
+              <div style="display: flex">
+                <button type="submit" class="btn btn-info btn-block btn-flat">
+                  <span aria-hidden="true" style="color: white"
+                    ><i class="fa fa-search" style="margin-right: 5px"></i>
+                    Cari</span
+                  >
+                </button>
+              </div>
             </div>
-    
-            <div class="x_content">
-    
-            
-              <table id="tabel-pengaturan" class="table table-bordered table-hover" style="width:100%; margin-top: 30px;">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Tanggal Absensi</th>
-                    <th>Nama Karyawan</th>
-                    <th>Status Kehadiran</th>
-                    <th>Status Keterlambatan</th>
-                    <th>Tanggal Input</th>
-                    <th>Tanggal Ubah</th>
-                    <th>Foto</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% list_data.forEach(function(value, index) { %>
-                    <tr data-id="<%= index %>">
-                        <td class="details-control"></i></td>
-                        <td><%= value['tgl_absensi'] %></td>
-                        <td><%= value['pengguna'] ? value['pengguna']['nama'] : '' %></td>
-                        <td><%= value['status_kehadiran'] %></td>
-                        <td><%= value['status_keterlambatan'] %></td>
-                        <td><%= value['tgl_input'] %></td>
-                        <td><%= value['tgl_ubah'] %></td>
-                        
-                        <td>
-                          <img src="<%= value['foto'] %>" alt="Foto" style="width: 100px; min-width: 100px; height: 100px; min-height: 100px; object-fit: cover; ">
-                        </td>
-                      </tr>
-                      <!-- <tr>
-                      <td colspan="6">Keterangan: <br/>-</td>
-                      </tr> -->
-                  <% }); %>
-                    
-                </tbody>
-              </table>
-    
-            </div>
+          </form>
+
+          <div style="display: flex; margin-left: 5px">
+            <form action="/laporan_absensi/reset" method="post">
+              <button
+                type="submit"
+                class="btn btn-secondary btn-block btn-flat"
+              >
+                <span aria-hidden="true" style="color: white"
+                  ><i class="fa fa-filter" style="margin-right: 5px"></i> Reset
+                  Filter</span
+                >
+              </button>
+            </form>
           </div>
         </div>
-    
+
+        <div class="x_content">
+          <table
+            id="tabel-pengaturan"
+            class="table table-bordered table-hover"
+            style="width: 100%; margin-top: 30px"
+          >
+            <thead>
+              <tr>
+                <th></th>
+                <th>Tanggal Absensi</th>
+                <th>Nama Karyawan</th>
+                <th>Status Kehadiran</th>
+                <th>Status Keterlambatan</th>
+                <th>Tanggal Input</th>
+                <th>Tanggal Ubah</th>
+                <th>Foto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% list_data.forEach(function(value, index) { %>
+              <tr data-id="<%= index %>">
+                <td class="details-control"></td>
+                <td><%= value['tgl_absensi'] %></td>
+                <td>
+                  <%= value['pengguna'] ? value['pengguna']['nama'] : '' %>
+                </td>
+                <td><%= value['status_kehadiran'] %></td>
+                <td><%= value['status_keterlambatan'] %></td>
+                <td><%= value['tgl_input'] %></td>
+                <td><%= value['tgl_ubah'] %></td>
+
+                <td>
+                  <img
+                    src="<%= value['foto'] %>"
+                    alt="Foto"
+                    style="
+                      width: 100px;
+                      min-width: 100px;
+                      height: 100px;
+                      min-height: 100px;
+                      object-fit: cover;
+                    "
+                  />
+                </td>
+              </tr>
+              <!-- <tr>
+                      <td colspan="6">Keterangan: <br/>-</td>
+                      </tr> -->
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-    
-    <script type="text/javascript">
-        jQuery.noConflict();
-(function($) {
-    $(document).ready(function() {
-      const list_data = JSON.parse(`<%- unescape(JSON.stringify(list_data).replace(/\\/g, '\\\\')) %>`);
-        var table = $('#tabel-pengaturan').DataTable({
-          "order": [[ 1, "desc" ]],
-          "columns": [
-            // Add more column definitions as needed
-            { "data": null, "orderable": false, "className": "details-control", "defaultContent": "<i class='fa fa-sort-up arrow-icon'></i>" }, // This column will contain the control to show/hide row details
-            { "data": "tanggal_absensi" },
-            { "data": "nama_karyawan" },
-            { "data": "status_kehadiran" },
-            { "data": "status_keterlambatan" },
-            { "data": "tanggal_input" },
-            { "data": "tanggal_ubah" },
-            { "data": "foto", "orderable": false },
-          ],
-          "columnDefs": [
-            {
-                "targets": 1, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                    // Parse the date string to a JavaScript Date object
-                    var date = new Date(data);
-                    // Create an array of week names
-                    var weekNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                    // Get the week name
-                    var weekName = weekNames[date.getDay()];
-                    // Get the day of the month
-                    var day = date.getDate();
-                    // Get the month name
-                    var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                    var monthName = monthNames[date.getMonth()];
-                    // Get the year
-                    var year = date.getFullYear();
-                    // Format the date string as 'weekname, day month year'
-                    var formattedDate = weekName + ', ' + day + ' ' + monthName + ' ' + year;
-                    // Return the formatted date
-                    if (type === 'sort' || type === 'type') {
-                        // For sorting and type detection, return a sortable format
-                        return year + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + day.toString().padStart(2, '0');
-                    } else {
-                        // For display, return the formatted date
-                        return formattedDate;
-                    }
-                }
+  </div>
+</div>
+
+<script type="text/javascript">
+  jQuery.noConflict();
+  (function ($) {
+    $(document).ready(function () {
+      const list_data = JSON.parse(
+        `<%- unescape(JSON.stringify(list_data).replace(/\\/g, '\\\\')) %>`
+      );
+      var table = $("#tabel-pengaturan").DataTable({
+        order: [[1, "desc"]],
+        columns: [
+          // Add more column definitions as needed
+          {
+            data: null,
+            orderable: false,
+            className: "details-control",
+            defaultContent: "<i class='fa fa-sort-up arrow-icon'></i>",
+          }, // This column will contain the control to show/hide row details
+          { data: "tanggal_absensi" },
+          { data: "nama_karyawan" },
+          { data: "status_kehadiran" },
+          { data: "status_keterlambatan" },
+          { data: "tanggal_input" },
+          { data: "tanggal_ubah" },
+          { data: "foto", orderable: false },
+        ],
+        columnDefs: [
+          {
+            targets: 1, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              // Parse the date string to a JavaScript Date object
+              var date = new Date(data);
+              // Create an array of week names
+              var weekNames = [
+                "Minggu",
+                "Senin",
+                "Selasa",
+                "Rabu",
+                "Kamis",
+                "Jumat",
+                "Sabtu",
+              ];
+              // Get the week name
+              var weekName = weekNames[date.getDay()];
+              // Get the day of the month
+              var day = date.getDate();
+              // Get the month name
+              var monthNames = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+              ];
+              var monthName = monthNames[date.getMonth()];
+              // Get the year
+              var year = date.getFullYear();
+              // Format the date string as 'weekname, day month year'
+              var formattedDate =
+                weekName + ", " + day + " " + monthName + " " + year;
+              // Return the formatted date
+              if (type === "sort" || type === "type") {
+                // For sorting and type detection, return a sortable format
+                return (
+                  year +
+                  "-" +
+                  (date.getMonth() + 1).toString().padStart(2, "0") +
+                  "-" +
+                  day.toString().padStart(2, "0")
+                );
+              } else {
+                // For display, return the formatted date
+                return formattedDate;
+              }
             },
-            {
-                "targets": 5, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                  return data ? new Date(data).toLocaleString() : ""
-                }
+          },
+          {
+            targets: 5, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              return data ? new Date(data).toLocaleString() : "";
             },
-            {
-                "targets": 6, // Assuming the date column is the first column (index 0)
-                "render": function (data, type, row) {
-                  return data ? new Date(data).toLocaleString() : ""
-                }
-            }
-        ]
-        });
-        
-        // Add event listener for opening and closing details
-        $('#tabel-pengaturan tbody').on('click', 'td.details-control', function () {
-            var tr = $(this).closest('tr');
+          },
+          {
+            targets: 6, // Assuming the date column is the first column (index 0)
+            render: function (data, type, row) {
+              return data ? new Date(data).toLocaleString() : "";
+            },
+          },
+        ],
+      });
 
-            $(this).find('.arrow-icon').toggleClass('fa-sort-up fa-sort-down');
+      // Add event listener for opening and closing details
+      $("#tabel-pengaturan tbody").on(
+        "click",
+        "td.details-control",
+        function () {
+          var tr = $(this).closest("tr");
 
-            var row = table.row(tr);
+          $(this).find(".arrow-icon").toggleClass("fa-sort-up fa-sort-down");
 
-            var dataId = tr.data('id');
-            
-            if (row.child.isShown()) {
-                // This row is already open - close it
-                row.child.hide();
-                tr.removeClass('shown');
-            } else {
-                // Open this row
-                row.child(getRowDetail(dataId)).show();
-                tr.addClass('shown');
-            }
-        });
+          var row = table.row(tr);
 
-        function getRowDetail(index) {
-            // `d` is the original data object for the row
-            return '<div style="padding-left: 15px;"><b>Keterangan</b>: '+ list_data[index]['keterangan'].replace(/\r\n/g, "<br>").replace(/\\n/g, "<br>"); +'</div>';
+          var dataId = tr.data("id");
+
+          if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass("shown");
+          } else {
+            // Open this row
+            row.child(getRowDetail(dataId)).show();
+            tr.addClass("shown");
+          }
         }
+      );
+
+      function getRowDetail(index) {
+        // `d` is the original data object for the row
+        return (
+          '<div style="padding-left: 15px;"><b>Keterangan</b>: ' +
+          list_data[index]["keterangan"]
+            .replace(/\r\n/g, "<br>")
+            .replace(/\\n/g, "<br>")
+        );
+        +"</div>";
+      }
     });
   })(jQuery);
-
-    </script>
-    <!-- /page content -->
-    
+</script>
+<!-- /page content -->
 
 <%- include('layouts/footer.ejs')%>
