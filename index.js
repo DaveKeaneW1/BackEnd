@@ -5,7 +5,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const toastr = require("express-toastr");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const upload = require("./backend/middleware/upload");
 const fs = require("fs");
 
@@ -21,7 +21,7 @@ app.use(express.json());
 
 //static files
 app.use(express.static("public"));
-app.use('/uploads', express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 
 //flash messages
 app.use(flash());
@@ -66,28 +66,39 @@ app.use("/", require("./backend/routes/absensi"));
 app.use("/", require("./backend/routes/kegiatan"));
 
 // POST route to handle image upload
-app.post('/upload', upload.single('image'), (req, res) => {
-  // 'image' should match the name attribute of the input field in the form
+app.post("/upload", upload.single("image"), (req, res) => {
+  if (req.body.foto) {
+    // 'image' should match the name attribute of the input field in the form
 
-  // Extract base64 data from the request body
-  const base64Data = req.body.foto.replace(/^data:image\/\w+;base64,/, '');
+    // Extract base64 data from the request body
+    const base64Data = req.body.foto.replace(/^data:image\/\w+;base64,/, "");
 
-  // Decode base64 data
-  const decodedImage = Buffer.from(base64Data, 'base64');
+    // Decode base64 data
+    const decodedImage = Buffer.from(base64Data, "base64");
 
-  // Generate a unique filename (you can customize this as needed)
-  const filename = 'uploaded_image_' + Date.now() + '.jpg';
+    // Generate a unique filename (you can customize this as needed)
+    const filename = "uploaded_image_" + Date.now() + ".jpg";
 
-  // Write the decoded image data to a file
-  fs.writeFile('uploads/' + filename, decodedImage, (err) => {
-    if (err) {
-      console.error('Error saving image:', err);
-      res.status(500).send('Error saving image');
-    } else {
-      console.log('Image saved as:', filename);
-      res.send('uploads/' + filename);
+    // Check if the directory exists
+    if (!fs.existsSync("uploads")) {
+      // If the directory doesn't exist, create it
+      fs.mkdirSync("uploads");
+      console.log(`Directory 'uploads' created successfully.`);
     }
-  });
+
+    // Write the decoded image data to a file
+    fs.writeFile("uploads/" + filename, decodedImage, (err) => {
+      if (err) {
+        console.error("Error saving image:", err);
+        res.status(500).send("Error saving image");
+      } else {
+        console.log("Image saved as:", filename);
+        res.send("uploads/" + filename);
+      }
+    });
+  } else {
+    res.status(500).send("Error saving image");
+  }
 });
 
 // app.get("/notfound", (req, res) => {
@@ -109,7 +120,6 @@ app.post('/upload', upload.single('image'), (req, res) => {
 // app.post("/reset_filter", (req, res) => {
 //   res.redirect("/laporan_absensi");
 // });
-
 
 app.listen(port, () => {
   console.log(`Webserver app listening on port ${port}`);
