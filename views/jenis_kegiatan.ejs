@@ -1,98 +1,157 @@
-<!DOCTYPE html>
-<html>
-  <%- include('layouts/head.ejs')%>
-  <body>
-    <%- include('layouts/navbar.ejs')%>
-    <%- include('layouts/sidebar.ejs')%>
+<%- include('layouts/head.ejs')%> <%- include('layouts/navbar.ejs')%> <%-
+include('layouts/sidebar.ejs')%>
 <!-- page content -->
 <div class="right_col" role="main">
   <div class="">
-    <div class="col-md-12 col-sm-12  ">
+    <div class="col-md-12 col-sm-12">
       <div class="x_panel">
-        <div class="x_title" style="display: flex; justify-content: space-between; padding-top: 10px; padding-bottom: 10px">
+        <div
+          class="x_title"
+          style="
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          "
+        >
           <h2>Daftar Jenis Kegiatan</h2>
-          <div style="margin-left: 15px;">
-            <button type="button" class="btn btn-success btn-block btn-flat tombolTambahData" style="height: 38px; font-size: 14px;" data-toggle="modal" data-target="#data_modal" data-keyboard="false" data-backdrop="static">
+          <div style="margin-left: 15px">
+            <button
+              type="button"
+              class="btn btn-success btn-block btn-flat tombolTambahData"
+              style="height: 38px; font-size: 14px"
+              data-toggle="modal"
+              data-target="#data_modal"
+              data-keyboard="false"
+              data-backdrop="static"
+            >
               Tambah Jenis Kegiatan
-          </button>
+            </button>
           </div>
         </div>
         <div class="x_content">
-
-      <!-- tambah data modal -->
-      <div class="modal fade" id="data_modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title" id="formModalLabel">Tambah Data Jenis Kegiatan</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form action="/jenis_kegiatan/tambah" method="POST">
-                <input type="hidden" name="id" id="id">
-                <div class="form-group">
-                  <label for="nama">Nama</label>
-                  <input type="text" class="form-control" id="nama" name="nama" required>
+          <!-- tambah data modal -->
+          <div class="modal fade" id="data_modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="formModalLabel">
+                    Tambah Data Jenis Kegiatan
+                  </h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
+                <form action="/jenis_kegiatan/tambah" method="POST">
+                  <div class="modal-body">
+                    <input type="hidden" name="id" id="id" />
+                    <div class="form-group">
+                      <label for="nama">Nama</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nama"
+                        name="nama"
+                        required
+                      />
+                    </div>
 
-                <div class="form-group">
-                  <label for="jabatan">Jabatan</label>
-                  <select class="form-control" id="jabatan" name="jabatan" required>
-                    <!-- <option value="1">HRD</option>
+                    <div class="form-group">
+                      <label for="jabatan">Jabatan</label>
+                      <select
+                        class="form-control"
+                        id="jabatan"
+                        name="jabatan"
+                        required
+                      >
+                        <!-- <option value="1">HRD</option>
                     <option value="2">IT Support</option> -->
-                    <% list_jabatan.forEach(function(value) { %>
-                      <option value="<%= value['_id'] %>"><%= value['nama'] %></option>
-                    <% }); %>
-                  </select>
-                </div>
+                        <% list_jabatan.forEach(function(value) { %>
+                        <option value="<%= value['_id'] %>">
+                          <%= value['nama'] %>
+                        </option>
+                        <% }); %>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Tutup
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                      Tambah
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.modal-content -->
             </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-              <button type="submit" class="btn btn-success">Tambah</button>
-              </form>
-            </div>
+            <!-- /.modal-dialog -->
           </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
+          <!-- /.modal -->
 
-
-      <!-- tabel data  -->
-      <table id="tabel-pengaturan" class="table table-bordered table-hover" style="width:100%">
-        <thead>
-            <tr>
+          <!-- tabel data  -->
+          <table
+            id="tabel-pengaturan"
+            class="table table-bordered table-hover"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
                 <th>Nama</th>
                 <th>Jabatan</th>
                 <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-          <% list_data.forEach(function(value) { %>
-            <tr>
-              <td><%= value['nama'] %></td>
-              <td><%= value['jabatan'] ? value['jabatan']['nama'] : '' %></td>
+              </tr>
+            </thead>
+            <tbody>
+              <% list_data.forEach(function(value) { %>
+              <tr>
+                <td><%= value['nama'] %></td>
+                <td><%= value['jabatan'] ? value['jabatan']['nama'] : '' %></td>
                 <td>
-                  <div style="display: flex;">
-                    <button type="button" class="btn btn-primary btn-block btn-sm tombolUbahData" style="margin-right:10px; max-width: 90px; height: 33px;"
-                      data-toggle="modal" data-target="#data_modal" data-keyboard="false" data-backdrop="static" data-id="<%= value[`_id`] %>">
-                      <i class="fa fa-edit" style="margin-right:10px"></i>Ubah
-                    </button>
-                    <button type="button" type="button" class="btn btn-danger btn-block btn-sm" style="margin-top: 0px; max-width: 90px; padding: 5px 10px; height: 33px;"
-                    onclick="hapusData('<%=value[`_id`]%>', '<%=value[`nama`]%>')" 
+                  <div style="display: flex">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-block btn-sm tombolUbahData"
+                      style="margin-right: 10px; max-width: 90px; height: 33px"
+                      data-toggle="modal"
+                      data-target="#data_modal"
+                      data-keyboard="false"
+                      data-backdrop="static"
+                      data-id="<%= value[`_id`] %>"
                     >
-                      <i class="fa fa-trash" style="margin-right:10px"></i>Hapus
-                    </button>  
+                      <i class="fa fa-edit" style="margin-right: 10px"></i>Ubah
+                    </button>
+                    <button
+                      type="button"
+                      type="button"
+                      class="btn btn-danger btn-block btn-sm"
+                      style="
+                        margin-top: 0px;
+                        max-width: 90px;
+                        padding: 5px 10px;
+                        height: 33px;
+                      "
+                      onclick="hapusData('<%=value[`_id`]%>', '<%=value[`nama`]%>')"
+                    >
+                      <i class="fa fa-trash" style="margin-right: 10px"></i
+                      >Hapus
+                    </button>
                   </div>
                 </td>
-            </tr>
-          <% }); %>
-        </tbody>
-    </table>
-
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -101,67 +160,65 @@
 
 <script type="text/javascript">
   jQuery.noConflict();
-(function($) {
-    $(document).ready(function() {
-        $('#tabel-pengaturan').DataTable({
-          "columnDefs": [
-            { "width": "220px", "targets": [2] } // Set specific column widths
-          ],
-          "columns": [
-            // Add more column definitions as needed
-            { "data": "nama" },
-            { "data": "jabatan" },
-            { "data": "aksi", "orderable": false }
-          ]
-        });
-
-      
+  (function ($) {
+    $(document).ready(function () {
+      $("#tabel-pengaturan").DataTable({
+        columnDefs: [
+          { width: "220px", targets: [2] }, // Set specific column widths
+        ],
+        columns: [
+          // Add more column definitions as needed
+          { data: "nama" },
+          { data: "jabatan" },
+          { data: "aksi", orderable: false },
+        ],
+      });
     });
 
-      $(function () {
-        $('.tombolTambahData').on('click', function () {
-        $('#formModalLabel').html('Tambah Data Jenis Kegiatan');
-        $('.modal-footer button[type=submit]').html('Tambah');
-        $('.modal-body form').attr('action', '/jenis_kegiatan/tambah');
+    $(function () {
+      $(".tombolTambahData").on("click", function () {
+        $("#formModalLabel").html("Tambah Data Jenis Kegiatan");
+        $(".modal-footer button[type=submit]").html("Tambah");
+        $("#data_modal form").attr("action", "/jenis_kegiatan/tambah");
 
-        $('#nama').val('');
-        $('#jabatan').val('');
-        $('#id').val('');
-      })
+        $("#nama").val("");
+        $("#jabatan").val("");
+        $("#id").val("");
+      });
 
-      $('.tombolUbahData').on('click', function () {
-        $('#formModalLabel').html('Ubah Data Jenis Kegiatan');
-        $('.modal-footer button[type=submit]').html('Ubah');
-        $('.modal-body form').attr('action', '/jenis_kegiatan/ubah');
+      $(".tombolUbahData").on("click", function () {
+        $("#formModalLabel").html("Ubah Data Jenis Kegiatan");
+        $(".modal-footer button[type=submit]").html("Ubah");
+        $("#data_modal form").attr("action", "/jenis_kegiatan/ubah");
 
-        const id = $(this).data('id');
+        const id = $(this).data("id");
 
         $.ajax({
-          url: '/jenis_kegiatan/getubah',
+          url: "/jenis_kegiatan/getubah",
           data: { id: id },
           method: "post",
-          dataType: 'json',
+          dataType: "json",
           success: function (data) {
-            $('#nama').val(data.nama);
-            $('#jabatan').val(data.jabatan ? data.jabatan["_id"] : '');
-            $('#id').val(data["_id"]);
-
+            $("#nama").val(data.nama);
+            $("#jabatan").val(data.jabatan ? data.jabatan["_id"] : "");
+            $("#id").val(data["_id"]);
           },
           error: function (xhr, status, error) {
             console.error("Error occurred:", error);
-          // Handle error
-          }
-        })
-      })
-      })
-})(jQuery);
+            // Handle error
+          },
+        });
+      });
+    });
+  })(jQuery);
 
+  function hapusData(id, nama) {
+    var isDelete = confirm(
+      'Apakah anda yakin akan menghapus jenis kegiatan "' + nama + '"'
+    );
 
-  function hapusData(id, nama){
-    var isDelete = confirm('Apakah anda yakin akan menghapus jenis kegiatan "' + nama +'"');
-
-    if(isDelete){
-      document.location.href='/jenis_kegiatan/hapus/' + id;
+    if (isDelete) {
+      document.location.href = "/jenis_kegiatan/hapus/" + id;
     }
   }
 </script>
