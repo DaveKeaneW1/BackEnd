@@ -1,0 +1,183 @@
+<%- include('layouts/head.ejs')%> <%- include('layouts/navbar.ejs')%> <%-
+include('layouts/sidebar.ejs')%>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="col-md-12 col-sm-12">
+      <div class="x_panel">
+        <div
+          class="x_title"
+          style="
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          "
+        >
+          <h2>Ubah Profil</h2>
+        </div>
+
+        <div class="x_content">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              margin-bottom: 50px;
+              justify-content: center;
+            "
+          >
+            <form action="/ubah_profil" method="POST">
+              <div style="display: flex">
+                <div>
+                  <div
+                    style="display: flex; margin-top: 10px; align-items: center"
+                  >
+                    <div
+                      style="
+                        min-width: 100px;
+                        max-width: 100px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Nama
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="nama"
+                        disabled
+                        style="
+                          height: 35px;
+                          border: 1px solid #e7e2e2;
+                          padding: 10px;
+                          min-width: 200px;
+                        "
+                        value="<%= data_pengguna['nama']%>"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    style="display: flex; margin-top: 20px; align-items: center"
+                  >
+                    <div
+                      style="
+                        min-width: 100px;
+                        max-width: 100px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Username
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="username"
+                        required
+                        style="
+                          height: 35px;
+                          border: 1px solid #e7e2e2;
+                          padding: 10px;
+                          min-width: 200px;
+                        "
+                        value="<%= data_pengguna['username']%>"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    style="display: flex; margin-top: 20px; align-items: center"
+                  >
+                    <div
+                      style="
+                        min-width: 100px;
+                        max-width: 100px;
+                        margin-right: 15px;
+                        font-size: 15px;
+                      "
+                    >
+                      Password
+                    </div>
+                    <div
+                      style="
+                        min-width: 10px;
+                        max-width: 10px;
+                        margin-right: 10px;
+                      "
+                    >
+                      :
+                    </div>
+                    <div>
+                      <input
+                        type="password"
+                        name="password"
+                        style="
+                          height: 35px;
+                          border: 1px solid #e7e2e2;
+                          padding: 10px;
+                          min-width: 200px;
+                        "
+                      />
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 20px">
+                    <div style="font-size: 15px; display: flex">
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-block btn-flat"
+                        style="
+                          height: 40px;
+                          font-size: 14px;
+                          width: 100px;
+                          padding: 0px;
+                          margin-left: auto;
+                        "
+                      >
+                        Ubah Profil
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <div style="margin-left: 80px">
+              <img
+                src="images/ubah_profil.jpg"
+                alt="logo"
+                style="height: 300px; opacity: 0.8"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- /.modal-dialog -->
+        <!-- /.modal -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /page content -->
+
+<%- include('layouts/footer.ejs')%>
