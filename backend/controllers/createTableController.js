@@ -68,7 +68,7 @@ exports.jenis_kegiatan = async (req, res) => {
     }
 
     for (const docData of sample_jenis_kegiatan) {
-      const highestDoc = await JabatanModel.findOne({nama: docData.nama_jabatan}).sort({ _id: -1 });
+      const highestDoc = await JenisKegiatanModel.findOne({nama: docData.nama_jabatan}).sort({ _id: -1 });
       if (highestDoc) {
         docData.jabatan = highestDoc._id;
       }
